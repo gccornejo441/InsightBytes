@@ -35,30 +35,53 @@ public class MainWindowViewModel : ViewModelBase
 
     public ICommand RunScriptCommand { get; }
     public ICommand GetFileCommand { get; }
+    public ICommand ClearLogWindowCommand { get; }
 
     public MainWindowViewModel()
     {
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
+        ClearLogWindowCommand = ReactiveCommand.Create(Clear);
+    }
+
+    void Clear()
+    {
+        _logBuilder.Clear();
+        this.RaisePropertyChanged(nameof(LogMessages));
+
+        LogMessages = "Cleared...";
     }
 
     async Task Run()
     {
+        if (string.IsNullOrWhiteSpace(_selectedDirectory))
+        {
+            LogData("Please select a directory to analyze methods.");
+            return; 
+        }
+
         _logBuilder.Clear();
         this.RaisePropertyChanged(nameof(LogMessages));
 
         var _analyzer = new AnalyzerService();
         List<string> methodNames = await _analyzer.GetAllMethodByNamesAsync(_selectedDirectory);
 
-        foreach (var method in methodNames)
+        if (methodNames.Count == 0)
         {
-            LogData(method);
+            LogData($"No methods found in the selected directory: {_selectedDirectory}");
+        }
+        else
+        {
+            foreach (var signatureWithLineNumber in methodNames)
+            {
+                LogData(signatureWithLineNumber);
+            }
         }
     }
 
     private void LogData(string message)
     {
-        string formattedMessage = $"[{DateTime.Now:HH:mm:ss}] {message}";
+        string formattedMessage = $"{message}";
 
         LogMessages = formattedMessage + "\n";
     }

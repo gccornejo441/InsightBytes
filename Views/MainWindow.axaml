@@ -1,22 +1,27 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:GetAllMethods.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="GetAllMethods.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="GetAllMethods"
-        TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
-        ExtendClientAreaToDecorationsHint="True">
+<Window
+	x:Class="GetAllMethods.Views.MainWindow"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:vm="using:GetAllMethods.ViewModels"
+	Title="GetAllMethods"
+	d:DesignHeight="450"
+	d:DesignWidth="800"
+	x:DataType="vm:MainWindowViewModel"
+	Background="Transparent"
+	ExtendClientAreaToDecorationsHint="True"
+	Icon="/Assets/report-repo.ico"
+	TransparencyLevelHint="AcrylicBlur"
+	mc:Ignorable="d">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<!--
+			This only sets the DataContext for the previewer in an IDE,
+			to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
+		-->
+		<vm:MainWindowViewModel />
+	</Design.DataContext>
 
 
 
@@ -49,29 +54,34 @@
 				Grid.Column="1"
 				HorizontalAlignment="Left">
 
-				<Label VerticalAlignment="Center" DockPanel.Dock="Left">Select A File:</Label>
-
-				<StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+				<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
 					<Button Margin="4" Command="{Binding GetFileCommand}">
-						<PathIcon Foreground="#61AFEF" Data="{StaticResource globe_search_regular}" />
-					</Button>
-					<Button
-						Margin="4"
-						VerticalContentAlignment="Center"
-						Command="{Binding RunScriptCommand}">
-						<PathIcon Data="{StaticResource play_regular}" Foreground="#98C379" />
+						<PathIcon Data="{StaticResource globe_search_regular}" Foreground="#61AFEF" />
 					</Button>
 				</StackPanel>
 				<TextBox
-					IsReadOnly="True"
-					Text="{Binding SelectedDirectory}"
 					Grid.Column="0"
 					Width="600"
 					Margin="8"
-					FontSize="12"
 					HorizontalAlignment="Stretch"
 					VerticalContentAlignment="Center"
+					DockPanel.Dock="Left"
+					FontSize="12"
+					IsReadOnly="True"
+					Text="{Binding SelectedDirectory}"
 					Watermark="Selected File" />
+				<Button
+					Margin="4"
+					VerticalContentAlignment="Center"
+					Command="{Binding RunScriptCommand}">
+					<PathIcon Data="{StaticResource play_regular}" Foreground="#98C379" />
+				</Button>
+				<Button
+					Margin="4"
+					VerticalContentAlignment="Center"
+					Command="{Binding ClearLogWindowCommand}">
+					<PathIcon Data="{StaticResource erase_regular}" Foreground="#E06C75" />
+				</Button>
 			</DockPanel>
 
 			<Border
@@ -94,7 +104,7 @@
 						x:Name="LogViewer"
 						Padding="13"
 						FontWeight="DemiBold"
-						Foreground="#98C379" 
+						Foreground="#98C379"
 						Text="{Binding LogMessages}" />
 				</ScrollViewer>
 			</Border>
