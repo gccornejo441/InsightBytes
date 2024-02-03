@@ -1,0 +1,104 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:GetAllMethods.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="GetAllMethods.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="GetAllMethods"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        ExtendClientAreaToDecorationsHint="True">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+
+
+	<Window.Styles>
+		<Style Selector="Button.action">
+			<Setter Property="Margin" Value="0 4" />
+			<Setter Property="Height" Value="32" />
+			<Setter Property="VerticalContentAlignment" Value="Center" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalContentAlignment" Value="Center" />
+			<Setter Property="Padding" Value="0 2 0 0" />
+		</Style>
+	</Window.Styles>
+
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					MaterialOpacity="0.65"
+					TintColor="{DynamicResource BgColor}"
+					TintOpacity="1" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+
+		<Grid ColumnDefinitions="10,*" RowDefinitions="Auto,Auto,*">
+
+			<DockPanel
+				Grid.Row="0"
+				Grid.Column="1"
+				HorizontalAlignment="Left">
+
+				<Label VerticalAlignment="Center" DockPanel.Dock="Left">Select A File:</Label>
+
+				<StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+					<Button Margin="4" Command="{Binding GetFileCommand}">
+						<PathIcon Foreground="#61AFEF" Data="{StaticResource globe_search_regular}" />
+					</Button>
+					<Button
+						Margin="4"
+						VerticalContentAlignment="Center"
+						Command="{Binding RunScriptCommand}">
+						<PathIcon Data="{StaticResource play_regular}" Foreground="#98C379" />
+					</Button>
+				</StackPanel>
+				<TextBox
+					IsReadOnly="True"
+					Text="{Binding SelectedDirectory}"
+					Grid.Column="0"
+					Width="600"
+					Margin="8"
+					FontSize="12"
+					HorizontalAlignment="Stretch"
+					VerticalContentAlignment="Center"
+					Watermark="Selected File" />
+			</DockPanel>
+
+			<Border
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				Grid.Column="1"
+				VerticalAlignment="Stretch"
+				Background="#282C34"
+				CornerRadius="4 0 0 0"
+				DockPanel.Dock="Bottom"
+				SizeChanged="Control_OnSizeChanged">
+
+				<ScrollViewer
+					x:Name="LogScrollViewer"
+					Name="ScrollOutputViewer"
+					Height="400"
+					VerticalAlignment="Stretch"
+					HorizontalScrollBarVisibility="Auto">
+					<SelectableTextBlock
+						x:Name="LogViewer"
+						Padding="13"
+						FontWeight="DemiBold"
+						Foreground="#98C379" 
+						Text="{Binding LogMessages}" />
+				</ScrollViewer>
+			</Border>
+		</Grid>
+	</Panel>
+
+</Window>
