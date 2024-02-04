@@ -2,10 +2,10 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-using GetAllMethods.ViewModels;
-using GetAllMethods.Views;
+using GetnMethods.ViewModels;
+using GetnMethods.Views;
 
-namespace GetAllMethods;
+namespace GetnMethods;
 public partial class App : Application
 {
     public override void Initialize()

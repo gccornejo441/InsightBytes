@@ -3,9 +3,9 @@ using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
-using GetAllMethods.ViewModels;
+using GetnMethods.ViewModels;
 
-namespace GetAllMethods;
+namespace GetnMethods;
 public class ViewLocator : IDataTemplate
 {
     public Control? Build(object? data)

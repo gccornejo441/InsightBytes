@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GetAllMethods.Services;
+namespace GetnMethods.Services;
 public interface IAnalyzerService
 {
     public Task<List<string>> GetAllMethodByNamesAsync(string fileName);

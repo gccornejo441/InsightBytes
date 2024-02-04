@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Avalonia.Platform.Storage;
 
-namespace GetAllMethods.Services;
+namespace GetnMethods.Services;
 public interface IFilePickerService
 {
     Task<IReadOnlyList<IStorageFolder>> OpenFolderPickerAsync();

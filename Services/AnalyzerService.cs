@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GetAllMethods.Services;
+namespace GetnMethods.Services;
 public class AnalyzerService : IAnalyzerService
 {
     public async Task<List<string>> GetAllMethodByNamesAsync(string fileName)

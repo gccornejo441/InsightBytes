@@ -3,7 +3,7 @@
 using Avalonia;
 using Avalonia.ReactiveUI;
 
-namespace GetAllMethods;
+namespace GetnMethods;
 
 internal sealed class Program
 {
