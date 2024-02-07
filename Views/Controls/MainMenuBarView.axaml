@@ -11,24 +11,23 @@
 	x:DataType="vm:MainWindowViewModel"
 	mc:Ignorable="d">
 
-
 	<DockPanel
-		Background="{DynamicResource ThemeContentBackgroundColor}"
 		Grid.Row="0"
 		Grid.Column="1"
-		HorizontalAlignment="Stretch">
-		<StackPanel DockPanel.Dock="Bottom"  Orientation="Horizontal">
+		HorizontalAlignment="Stretch"
+		Background="{DynamicResource ThemeContentBackgroundColor}">
+		<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
 			<TextBox
-			Grid.Column="0"
-			Width="600"
-			Margin="8"
-			HorizontalAlignment="Stretch"
-			VerticalContentAlignment="Center"
-			DockPanel.Dock="Left"
-			FontSize="12"
-			IsReadOnly="True"
-			Text="{Binding SelectedDirectory}"
-			Watermark="Selected File" />
+				Grid.Column="0"
+				Width="600"
+				Margin="8"
+				HorizontalAlignment="Stretch"
+				VerticalContentAlignment="Center"
+				DockPanel.Dock="Left"
+				FontSize="12"
+				IsReadOnly="True"
+				Text="{Binding SelectedDirectory}"
+				Watermark="Selected File" />
 			<ui:CommandBar>
 				<ui:CommandBar.PrimaryCommands>
 					<ui:CommandBarButton
