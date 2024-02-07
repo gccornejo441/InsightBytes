@@ -4,41 +4,76 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+	xmlns:local="using:GetnMethods"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	xmlns:views="clr-namespace:GetnMethods"
 	xmlns:vm="using:GetnMethods.ViewModels"
 	Title="GetnMethods"
-	d:DesignHeight="450"
-	d:DesignWidth="800"
+	d:DesignHeight="550"
+	d:DesignWidth="1000"
 	x:DataType="vm:MainWindowViewModel"
 	Background="Transparent"
 	ExtendClientAreaToDecorationsHint="True"
 	Icon="/Assets/report-repo.ico"
 	TransparencyLevelHint="AcrylicBlur"
-	xmlns:local="using:GetnMethods"
 	mc:Ignorable="d">
 
 	<Design.DataContext>
-		<!--
-			This only sets the DataContext for the previewer in an IDE,
-			to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs)
-		-->
 		<vm:MainWindowViewModel />
 	</Design.DataContext>
 
-
-
-	<Window.Styles>
-		<Style Selector="Button.action">
-			<Setter Property="Margin" Value="0 4" />
-			<Setter Property="Height" Value="32" />
-			<Setter Property="VerticalContentAlignment" Value="Center" />
-			<Setter Property="HorizontalAlignment" Value="Stretch" />
-			<Setter Property="HorizontalContentAlignment" Value="Center" />
-			<Setter Property="Padding" Value="0 2 0 0" />
-		</Style>
-	</Window.Styles>
-
-	<Panel>
+	<Grid
+		HorizontalAlignment="Stretch"
+		VerticalAlignment="Stretch"
+		RowDefinitions="Auto, *">
+		<Grid
+			Grid.Row="1"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"
+			ColumnDefinitions="*"
+			RowDefinitions="Auto, *, Auto">
+			<StackPanel
+				Name="MenuBar"
+				Grid.Row="0"
+				MinHeight="35"
+				Margin="50,0,0,0"
+				HorizontalAlignment="Stretch"
+				IsVisible="True"
+				Orientation="Vertical">
+				<views:MainMenuBarView Name="MenuBarView" />
+			</StackPanel>
+			<!--<ContentControl
+				Name="MainContent"
+				Grid.Row="1"
+				Padding="0"
+				HorizontalAlignment="Stretch"
+				BorderBrush="{DynamicResource ThemeColorBorderColor}"
+				BorderThickness="0,0,0,0"
+				DockPanel.Dock="Top">
+				<Grid
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					ColumnDefinitions="Auto, Auto" />
+			</ContentControl>-->
+			<Grid
+				Grid.Row="1"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				Background="{DynamicResource ThemeContentBackgroundColor}"
+				ZIndex="1000">
+				<dialogHost:DialogHost CloseOnClickAway="True" IsOpen="False">
+					<views:MainView />
+				</dialogHost:DialogHost>
+			</Grid>
+			<views:MainStatusBarView
+				Grid.Row="2"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				IsVisible="True" />
+		</Grid>
+	</Grid>
+	<!--<Panel>
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
 				<ExperimentalAcrylicMaterial
@@ -50,76 +85,9 @@
 		</ExperimentalAcrylicBorder>
 
 		<dialogHost:DialogHost CloseOnClickAway="True" IsOpen="False">
-			<Grid ColumnDefinitions="10,*" RowDefinitions="Auto,Auto,*">
-
-				<DockPanel
-					Grid.Row="0"
-					Grid.Column="1"
-					HorizontalAlignment="Left">
-
-					<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-						<Button Margin="4" Command="{Binding GetFileCommand}">
-							<PathIcon Data="{StaticResource globe_search_regular}" Foreground="#61AFEF" />
-						</Button>
-					</StackPanel>
-					<TextBox
-						Grid.Column="0"
-						Width="600"
-						Margin="8"
-						HorizontalAlignment="Stretch"
-						VerticalContentAlignment="Center"
-						DockPanel.Dock="Left"
-						FontSize="12"
-						IsReadOnly="True"
-						Text="{Binding SelectedDirectory}"
-						Watermark="Selected File" />
-					<Button
-						Margin="4"
-						VerticalContentAlignment="Center"
-						Command="{Binding RunScriptCommand}">
-						<PathIcon Data="{StaticResource play_regular}" Foreground="#98C379" />
-					</Button>
-					<Button
-						Margin="4"
-						VerticalContentAlignment="Center"
-						Command="{Binding ClearLogWindowCommand}">
-						<PathIcon Data="{StaticResource erase_regular}" Foreground="#E06C75" />
-					</Button>
-					<Button
-						Margin="4"
-						VerticalContentAlignment="Center"
-						Command="{Binding DownloadCommand}">
-						<PathIcon Data="{StaticResource arrow_download_regular}" Foreground="#61AFEF" />
-					</Button>
-				</DockPanel>
-
-				<Border
-					Grid.Row="1"
-					Grid.RowSpan="2"
-					Grid.Column="1"
-					VerticalAlignment="Stretch"
-					Background="#282C34"
-					CornerRadius="4 0 0 0"
-					DockPanel.Dock="Bottom"
-					SizeChanged="Control_OnSizeChanged">
-
-					<ScrollViewer
-						x:Name="LogScrollViewer"
-						Name="ScrollOutputViewer"
-						Height="400"
-						VerticalAlignment="Stretch"
-						HorizontalScrollBarVisibility="Auto">
-						<SelectableTextBlock
-							x:Name="LogViewer"
-							Padding="13"
-							FontWeight="DemiBold"
-							Foreground="#98C379"
-							Text="{Binding LogMessages}" />
-					</ScrollViewer>
-				</Border>
-			</Grid>
+			<views:MainView />
 		</dialogHost:DialogHost>
 		
-	</Panel>
+	</Panel>-->
 
 </Window>

@@ -8,9 +8,4 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void Control_OnSizeChanged(object sender,SizeChangedEventArgs e)
-    {
-        if (e.HeightChanged)
-            ScrollOutputViewer.Height = e.NewSize.Height;
-    }
 }

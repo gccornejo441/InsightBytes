@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -15,9 +16,42 @@ using GetnMethods.Services;
 using ReactiveUI;
 
 namespace GetnMethods.ViewModels;
-
 public class MainWindowViewModel : ViewModelBase
 {
+    private bool _showMenuAndStatusBar = true;
+    public bool ShowMenuAndStatusBar
+    {
+        get => _showMenuAndStatusBar;
+        set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar,value);
+    }
+
+    private bool _showLoadProgress;
+    public bool ShowLoadProgress
+    {
+        get => _showLoadProgress;
+        set => this.RaiseAndSetIfChanged(ref _showLoadProgress,value);
+    }
+    private bool _statusBarVisible = true;
+    public bool StatusBarVisible
+    {
+        get => _statusBarVisible;
+        set => this.RaiseAndSetIfChanged(ref _statusBarVisible,value);
+    }
+
+    private int _statusProgressMaximum;
+    public int StatusBarProgressMaximum
+    {
+        get => _statusProgressMaximum;
+        set => this.RaiseAndSetIfChanged(ref _statusProgressMaximum,value);
+    }
+    private int _statusBarProgressValue;
+    public int StatusBarProgressValue
+    {
+        get => _statusBarProgressValue;
+        set => this.RaiseAndSetIfChanged(ref _statusBarProgressValue,value);
+    }
+
+
     private StringBuilder _logBuilder = new StringBuilder();
 
     private string _selectedDirectory;
@@ -50,6 +84,7 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand DownloadCommand { get; }
     public MainWindowViewModel()
     {
+       
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
