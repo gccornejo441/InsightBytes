@@ -17,7 +17,7 @@
 		<vm:MainWindowViewModel />
 	</Design.DataContext>
 
-	<UserControl.Styles>
+	<!--<UserControl.Styles>
 		<Style Selector="Button.action">
 			<Setter Property="Margin" Value="0 4" />
 			<Setter Property="Height" Value="32" />
@@ -133,22 +133,40 @@
 		<Style Selector="ui|NavigationViewItem.AppNav uip|NavigationViewItemPresenter:selected /template/ ContentPresenter#Icon">
 			<Setter Property="Foreground" Value="{DynamicResource AccentFillColorDefaultBrush}" />
 		</Style>
-	</UserControl.Styles>
+	</UserControl.Styles>-->
 
-	<Grid RowDefinitions="Auto, *" Background="{DynamicResource ThemeContentBackgroundColor}">
+	<Grid Background="{DynamicResource ThemeContentBackgroundColor}" RowDefinitions="Auto, *">
 		<ui:NavigationView
 			Name="NavView"
 			Grid.RowSpan="2"
 			AlwaysShowHeader="False"
 			Classes="AppNav"
 			Header="Header"
+			HeaderTemplate="{DynamicResource NavViewHeaderTemplate}"
 			IsBackButtonVisible="False"
 			IsPaneOpen="True"
 			IsPaneToggleButtonVisible="False"
 			IsSettingsVisible="True"
 			PaneDisplayMode="LeftCompact">
+
+
+			<ui:NavigationView.PaneFooter>
+				<StackPanel
+					Name="FooterStackPanel"
+					IsVisible="True"
+					Orientation="Vertical">
+					<Button
+						Margin="4"
+						VerticalContentAlignment="Center"
+						Command="{Binding DownloadCommand}">
+						<PathIcon Data="{StaticResource arrow_download_regular}" Foreground="#61AFEF" />
+					</Button>
+				</StackPanel>
+			</ui:NavigationView.PaneFooter>
 			<ui:NavigationView.Content>
 				<Grid ColumnDefinitions="0,*" RowDefinitions="Auto,Auto,*">
+			
+
 					<Border
 						Grid.Row="1"
 						Grid.RowSpan="2"
@@ -158,7 +176,6 @@
 						CornerRadius="0 0 0 0"
 						DockPanel.Dock="Bottom"
 						SizeChanged="Control_OnSizeChanged">
-						
 						<ScrollViewer
 							x:Name="LogScrollViewer"
 							Name="ScrollOutputViewer"

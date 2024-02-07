@@ -33,29 +33,93 @@
 			VerticalAlignment="Stretch"
 			ColumnDefinitions="*"
 			RowDefinitions="Auto, *, Auto">
-			<StackPanel
-				Name="MenuBar"
+			<DockPanel
 				Grid.Row="0"
-				MinHeight="35"
-				Margin="50,0,0,0"
+				Grid.Column="1"
 				HorizontalAlignment="Stretch"
-				IsVisible="True"
-				Orientation="Vertical">
-				<views:MainMenuBarView Name="MenuBarView" />
-			</StackPanel>
-			<!--<ContentControl
-				Name="MainContent"
-				Grid.Row="1"
-				Padding="0"
-				HorizontalAlignment="Stretch"
-				BorderBrush="{DynamicResource ThemeColorBorderColor}"
-				BorderThickness="0,0,0,0"
-				DockPanel.Dock="Top">
-				<Grid
-					HorizontalAlignment="Stretch"
-					VerticalAlignment="Stretch"
-					ColumnDefinitions="Auto, Auto" />
-			</ContentControl>-->
+				Background="{DynamicResource ThemeContentBackgroundColor}">
+				<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+					<TextBox
+						Grid.Column="0"
+						Width="600"
+						Margin="8"
+						HorizontalAlignment="Stretch"
+						VerticalContentAlignment="Center"
+						DockPanel.Dock="Left"
+						FontSize="12"
+						IsReadOnly="True"
+						Text="{Binding SelectedDirectory}"
+						Watermark="Selected File" />
+					<ui:CommandBar>
+						<ui:CommandBar.PrimaryCommands>
+							<ui:CommandBarButton
+								Command="{Binding GetFileCommand}"
+								Foreground="#E5C07B"
+								IconSource="OpenFile"
+								Label="Get File" />
+							<ui:CommandBarSeparator />
+							<ui:CommandBarButton
+								Command="{Binding RunScriptCommand}"
+								Foreground="#98C379"
+								IconSource="Play"
+								Label="Run" />
+							<ui:CommandBarButton
+								Command="{Binding ClearLogWindowCommand}"
+								Foreground="#E06C75"
+								IconSource="Clear"
+								Label="Clear" />
+							<ui:CommandBarButton
+								Command="{Binding DownloadCommand}"
+								Foreground="#61AFEF"
+								IconSource="Download"
+								Label="Download" />
+						</ui:CommandBar.PrimaryCommands>
+					</ui:CommandBar>
+				</StackPanel>
+
+				<!--<StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+							<Button Margin="4" Command="{Binding GetFileCommand}">
+								<PathIcon Data="{StaticResource globe_search_regular}" Foreground="#61AFEF" />
+							</Button>
+						</StackPanel>
+						<TextBox
+							Grid.Column="0"
+							Width="600"
+							Margin="8"
+							HorizontalAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							DockPanel.Dock="Left"
+							FontSize="12"
+							IsReadOnly="True"
+							Text="{Binding SelectedDirectory}"
+							Watermark="Selected File" />
+						<ComboBox
+							Grid.Column="0"
+							Width="200"
+							Margin="8"
+							HorizontalAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							DockPanel.Dock="Left"
+							FontSize="12" />
+						<Button
+							Margin="4"
+							VerticalContentAlignment="Center"
+							Command="{Binding RunScriptCommand}">
+							<PathIcon Data="{StaticResource play_regular}" Foreground="#98C379" />
+						</Button>
+						<Button
+							Margin="4"
+							VerticalContentAlignment="Center"
+							Command="{Binding ClearLogWindowCommand}">
+							<PathIcon Data="{StaticResource erase_regular}" Foreground="#E06C75" />
+						</Button>
+						<Button
+							Margin="4"
+							VerticalContentAlignment="Center"
+							Command="{Binding DownloadCommand}">
+							<PathIcon Data="{StaticResource arrow_download_regular}" Foreground="#61AFEF" />
+						</Button>-->
+			</DockPanel>
 			<Grid
 				Grid.Row="1"
 				HorizontalAlignment="Stretch"
