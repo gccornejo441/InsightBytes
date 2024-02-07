@@ -47,6 +47,17 @@
 			<Color x:Key="AppListBackgroundColor">#b3ffffff</Color>
 			<Color x:Key="AppListHoverBackgroundColor">#80cccccc</Color>
 			<Color x:Key="SecondaryTextColor">#A0000000</Color>
+			<!--  Light Theme OneHalfDark Colors  -->
+			<Color x:Key="NormalBlackLight">#383a42</Color>
+			<Color x:Key="NormalRedLight">#e45649</Color>
+			<Color x:Key="NormalGreenLight">#50a14f</Color>
+			<Color x:Key="NormalYellowLight">#c18401</Color>
+			<Color x:Key="NormalBlueLight">#0184bc</Color>
+			<Color x:Key="NormalMagentaLight">#a626a4</Color>
+			<Color x:Key="NormalCyanLight">#0997b3</Color>
+			<Color x:Key="NormalWhiteLight">#fafafa</Color>
+			<Color x:Key="ForegroundLight">#383a42</Color>
+			<Color x:Key="BackgroundLight">#fafafa</Color>
 		</ResourceDictionary>
 		<ResourceDictionary x:Key="Dark">
 			<SolidColorBrush x:Key="DataGridSelectionBackgroundBrush" Color="{DynamicResource DataGridSelectionColor}" />
@@ -70,6 +81,18 @@
 			<Color x:Key="AppListBackgroundColor">#0FFFFFFF</Color>
 			<Color x:Key="AppListHoverBackgroundColor">#1EFFFFFF</Color>
 			<Color x:Key="SecondaryTextColor">#A0FFFFFF</Color>
+
+			<!--  Dark Theme OneHalfDark Colors  -->
+			<Color x:Key="NormalBlackDark">#282c34</Color>
+			<Color x:Key="NormalRedDark">#e06c75</Color>
+			<Color x:Key="NormalGreenDark">#98c379</Color>
+			<Color x:Key="NormalYellowDark">#e5c07b</Color>
+			<Color x:Key="NormalBlueDark">#61afef</Color>
+			<Color x:Key="NormalMagentaDark">#c678dd</Color>
+			<Color x:Key="NormalCyanDark">#56b6c2</Color>
+			<Color x:Key="NormalWhiteDark">#dcdfe4</Color>
+			<Color x:Key="ForegroundDark">#dcdfe4</Color>
+			<Color x:Key="BackgroundDark">#282c34</Color>
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

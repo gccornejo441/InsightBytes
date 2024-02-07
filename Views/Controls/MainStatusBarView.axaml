@@ -6,9 +6,9 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ui="using:FluentAvalonia.UI.Controls"
 	xmlns:vm="clr-namespace:GetnMethods.ViewModels;assembly=GetnMethods"
-	x:DataType="vm:MainWindowViewModel"
 	d:DesignHeight="450"
-	d:DesignWidth="800"
+	d:DesignWidth="1000"
+	x:DataType="vm:MainWindowViewModel"
 	mc:Ignorable="d">
 	<Design.DataContext>
 		<vm:MainWindowViewModel />
@@ -58,13 +58,13 @@
 					Margin="0,0,5,0"
 					VerticalAlignment="Center"
 					IsVisible="True"
-					Text="locale:Locale StatusBarGamesLoaded" />
+					Text="StatusBarFileNameLoaded" />
 				<ProgressBar
 					Name="LoadProgressBar"
 					Grid.Column="2"
 					Height="6"
 					VerticalAlignment="Center"
-					Foreground="{DynamicResource SystemAccentColorLight2}"
+					Foreground="{DynamicResource NormalCyanDark}"
 					IsVisible="{Binding StatusBarVisible}"
 					Maximum="{Binding StatusBarProgressMaximum}"
 					Value="{Binding StatusBarProgressValue}" />

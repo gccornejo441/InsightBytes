@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿
 using Avalonia.Controls;
 
 using DialogHostAvalonia;
@@ -15,50 +7,78 @@ using GetnMethods.Services;
 
 using ReactiveUI;
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+using System.IO;
+
+using System.Text;
+
+using System.Threading.Tasks;
+
+using System.Windows.Input;
+
 namespace GetnMethods.ViewModels;
+
 public class MainWindowViewModel : ViewModelBase
 {
     private bool _showMenuAndStatusBar = true;
+
     public bool ShowMenuAndStatusBar
     {
         get => _showMenuAndStatusBar;
-        set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar,value);
+        set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar, value);
     }
 
     private bool _showLoadProgress;
+
     public bool ShowLoadProgress
     {
         get => _showLoadProgress;
-        set => this.RaiseAndSetIfChanged(ref _showLoadProgress,value);
+        set => this.RaiseAndSetIfChanged(ref _showLoadProgress, value);
     }
+
     private bool _statusBarVisible = true;
+
     public bool StatusBarVisible
     {
         get => _statusBarVisible;
-        set => this.RaiseAndSetIfChanged(ref _statusBarVisible,value);
+        set => this.RaiseAndSetIfChanged(ref _statusBarVisible, value);
     }
 
-    private int _statusProgressMaximum;
+    private int _statusBarProgressMaximum = 100;
+
     public int StatusBarProgressMaximum
     {
-        get => _statusProgressMaximum;
-        set => this.RaiseAndSetIfChanged(ref _statusProgressMaximum,value);
+        get => _statusBarProgressMaximum;
+        set => this.RaiseAndSetIfChanged(ref _statusBarProgressMaximum, value);
     }
-    private int _statusBarProgressValue;
+
+    private int _statusBarProgressValue = 0;
+
     public int StatusBarProgressValue
     {
         get => _statusBarProgressValue;
-        set => this.RaiseAndSetIfChanged(ref _statusBarProgressValue,value);
+        set => this.RaiseAndSetIfChanged(ref _statusBarProgressValue, value);
     }
-
 
     private StringBuilder _logBuilder = new StringBuilder();
 
+    private string _selectedFileName;
+
+    private string SelectedFileName
+    {
+        get => _selectedFileName;
+        set => this.RaiseAndSetIfChanged(ref _selectedFileName, value);
+    }
+
     private string _selectedDirectory;
+
     public string SelectedDirectory
     {
         get => _selectedDirectory;
-        set => this.RaiseAndSetIfChanged(ref _selectedDirectory,value);
+        set => this.RaiseAndSetIfChanged(ref _selectedDirectory, value);
     }
 
     public string LogMessages
@@ -72,19 +92,23 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     private string _downloadMessage;
+
     public string DownloadMessage
     {
         get => _downloadMessage;
-        set => this.RaiseAndSetIfChanged(ref _downloadMessage,value);
+        set => this.RaiseAndSetIfChanged(ref _downloadMessage, value);
     }
 
     public ICommand RunScriptCommand { get; }
+
     public ICommand GetFileCommand { get; }
+
     public ICommand ClearLogWindowCommand { get; }
+
     public ICommand DownloadCommand { get; }
+
     public MainWindowViewModel()
     {
-       
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
@@ -93,14 +117,13 @@ public class MainWindowViewModel : ViewModelBase
 
     void Clear()
     {
-        if (!string.IsNullOrEmpty(LogMessages))
+        if(!string.IsNullOrEmpty(LogMessages))
         {
             _logBuilder.Clear();
             this.RaisePropertyChanged(nameof(LogMessages));
 
             LogMessages = "Cleared...";
-        } 
-        else
+        } else
         {
             LogMessages = "Nothing to clear.";
         }
@@ -108,38 +131,65 @@ public class MainWindowViewModel : ViewModelBase
 
     async Task Run()
     {
-        if (string.IsNullOrWhiteSpace(_selectedDirectory))
+        if(string.IsNullOrWhiteSpace(_selectedDirectory))
         {
             _logBuilder.Clear();
             this.RaisePropertyChanged(nameof(LogMessages));
             LogData("Please select a directory to analyze methods.");
-            return; 
+            return;
         }
 
-        _logBuilder.Clear();
-        this.RaisePropertyChanged(nameof(LogMessages));
-
-        var _analyzer = new AnalyzerService();
-        List<string> methodNames = await _analyzer.GetAllMethodByNamesAsync(_selectedDirectory);
-
-        if (methodNames.Count == 0)
+        try
         {
-            LogData($"No methods found in the selected directory: {_selectedDirectory}");
-        }
-        else
-        {
-            foreach (var signatureWithLineNumber in methodNames)
+            _logBuilder.Clear();
+            this.RaisePropertyChanged(nameof(LogMessages));
+
+            var _analyzer = new AnalyzerService();
+
+            List<string> methodNames = await _analyzer.GetAllMethodByNamesAsync(_selectedDirectory);
+
+            StatusBarProgressMaximum = methodNames.Count;
+            if(methodNames.Count == 0)
             {
-                LogData(signatureWithLineNumber);
+                LogData($"No methods found in the selected directory: {_selectedDirectory}");
+            } else
+            {
+                if(methodNames.Count >= 150)
+                {
+                    foreach(var signatureWithLineNumber in methodNames)
+                    {
+                        LogData(signatureWithLineNumber);
+                        StatusBarProgressValue++;
+                    }
+                } else
+                {
+                    foreach(var signatureWithLineNumber in methodNames)
+                    {
+                        await SimulateLongRunningOperationAsync();
+                        LogData(signatureWithLineNumber);
+                        StatusBarProgressValue++;
+                    }
+                }
             }
+        } catch(Exception ex)
+        {
+            Debug.WriteLine($"Exception occurred while analyzing methods: {ex.Message}");
+        } finally
+        {
+            ShowLoadProgress = false;
+            StatusBarVisible = false;
+            StatusBarProgressValue = 0;
+            StatusBarProgressMaximum = 0;
         }
     }
+
+    public async Task SimulateLongRunningOperationAsync() { await Task.Delay(16); }
 
     private async Task DownloadData()
     {
         try
         {
-            if (_logBuilder.Length == 0)
+            if(_logBuilder.Length == 0)
             {
                 DownloadMessage = "No data in log to download.";
 
@@ -149,15 +199,15 @@ public class MainWindowViewModel : ViewModelBase
 
             // Specify the path where the log file will be saved
             // Consider asking the user for a location or using a common location
-            string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),"LogData.txt");
+            string filePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                "LogData.txt");
 
-            await File.WriteAllTextAsync(filePath,_logBuilder.ToString());
+            await File.WriteAllTextAsync(filePath, _logBuilder.ToString());
 
             DownloadMessage = $"Log data successfully saved to: {filePath}";
             DialogHost.Show(DownloadMessage);
-
-        }
-        catch (Exception ex)
+        } catch(Exception ex)
         {
             Debug.WriteLine($"Exception occurred while saving log data: {ex.Message}");
         }
@@ -179,17 +229,15 @@ public class MainWindowViewModel : ViewModelBase
 
             var fileMetaData = await filePickerService.OpenFilePickerAsync();
 
-            if (fileMetaData != null)
+            if(fileMetaData != null)
             {
-                foreach (var folderData in fileMetaData)
+                foreach(var folderData in fileMetaData)
                 {
                     SelectedDirectory = folderData.Path.AbsolutePath;
                 }
             }
-        }
-        catch (Exception ex)
+        } catch(Exception ex)
         {
-
         }
     }
 }

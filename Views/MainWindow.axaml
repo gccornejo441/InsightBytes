@@ -25,39 +25,35 @@
 
 
 	<Panel Background="{DynamicResource ThemeContentBackgroundColor}">
-		<Grid
-		HorizontalAlignment="Stretch"
-		VerticalAlignment="Stretch"
-		RowDefinitions="Auto, *">
+		<dialogHost:DialogHost CloseOnClickAway="True" IsOpen="False">
 			<Grid
-				Grid.Row="1"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"
-				ColumnDefinitions="50, *"
-				RowDefinitions="Auto, *, Auto">
-				<views:MainMenuBarView Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="0" />
+				RowDefinitions="Auto, *">
 				<Grid
-					Grid.Column="0"
-					Grid.ColumnSpan="2"
 					Grid.Row="1"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Stretch"
-					Background="{DynamicResource ThemeContentBackgroundColor}"
-					ZIndex="1000">
-					<dialogHost:DialogHost CloseOnClickAway="True" IsOpen="False">
-						<views:MainView />
-					</dialogHost:DialogHost>
+					ColumnDefinitions="50, *"
+					RowDefinitions="Auto, *, Auto">
+					<views:MainMenuBarView
+						Grid.Row="0"
+						Grid.Column="1"
+						Grid.ColumnSpan="2" />
+					<views:MainView
+						Grid.Row="1"
+						Grid.Column="0"
+						Grid.ColumnSpan="2" />
+					<views:MainStatusBarView
+						Grid.Row="2"
+						Grid.Column="0"
+						Grid.ColumnSpan="2"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						IsVisible="True" />
 				</Grid>
-				<views:MainStatusBarView
-					Grid.Column="0"
-					Grid.ColumnSpan="2"
-					Grid.Row="2"
-					HorizontalAlignment="Stretch"
-					VerticalAlignment="Stretch"
-					IsVisible="True" />
 			</Grid>
-		</Grid>
-		
+		</dialogHost:DialogHost>
 	</Panel>
 
 </Window>

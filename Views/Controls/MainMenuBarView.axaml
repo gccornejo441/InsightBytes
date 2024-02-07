@@ -20,7 +20,7 @@
 			<TextBox
 				Grid.Column="0"
 				Width="600"
-				Margin="8"
+				Margin="0,8,8,8"
 				HorizontalAlignment="Stretch"
 				VerticalContentAlignment="Center"
 				DockPanel.Dock="Left"
@@ -46,11 +46,6 @@
 						Foreground="#E06C75"
 						IconSource="Clear"
 						Label="Clear" />
-					<ui:CommandBarButton
-						Command="{Binding DownloadCommand}"
-						Foreground="#61AFEF"
-						IconSource="Download"
-						Label="Download" />
 				</ui:CommandBar.PrimaryCommands>
 			</ui:CommandBar>
 		</StackPanel>
