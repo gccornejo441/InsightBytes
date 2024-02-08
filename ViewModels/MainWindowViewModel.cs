@@ -39,7 +39,7 @@ public class MainWindowViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _showLoadProgress, value);
     }
 
-    private bool _statusBarVisible = true;
+    private bool _statusBarVisible = false;
 
     public bool StatusBarVisible
     {
@@ -67,7 +67,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private string _selectedFileName;
 
-    private string SelectedFileName
+    public string SelectedFileName
     {
         get => _selectedFileName;
         set => this.RaiseAndSetIfChanged(ref _selectedFileName, value);
@@ -107,12 +107,20 @@ public class MainWindowViewModel : ViewModelBase
 
     public ICommand DownloadCommand { get; }
 
+    public ICommand SwitchContextCommand { get; }
+
     public MainWindowViewModel()
     {
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
         DownloadCommand = ReactiveCommand.CreateFromTask(DownloadData);
+        SwitchContextCommand = ReactiveCommand.Create(SwitchContext);
+    }
+
+    private void SwitchContext()
+    {
+
     }
 
     void Clear()
@@ -122,8 +130,16 @@ public class MainWindowViewModel : ViewModelBase
             _logBuilder.Clear();
             this.RaisePropertyChanged(nameof(LogMessages));
 
+            ShowLoadProgress = false;
+            StatusBarVisible = false;
+            StatusBarProgressValue = 0;
+            StatusBarProgressMaximum = 0;
+            SelectedFileName = string.Empty;
+            SelectedDirectory = string.Empty;
+
             LogMessages = "Cleared...";
-        } else
+        } 
+        else
         {
             LogMessages = "Nothing to clear.";
         }
@@ -144,11 +160,14 @@ public class MainWindowViewModel : ViewModelBase
             _logBuilder.Clear();
             this.RaisePropertyChanged(nameof(LogMessages));
 
+            StatusBarVisible = true;
+
             var _analyzer = new AnalyzerService();
 
             List<string> methodNames = await _analyzer.GetAllMethodByNamesAsync(_selectedDirectory);
 
             StatusBarProgressMaximum = methodNames.Count;
+
             if(methodNames.Count == 0)
             {
                 LogData($"No methods found in the selected directory: {_selectedDirectory}");
@@ -174,12 +193,6 @@ public class MainWindowViewModel : ViewModelBase
         } catch(Exception ex)
         {
             Debug.WriteLine($"Exception occurred while analyzing methods: {ex.Message}");
-        } finally
-        {
-            ShowLoadProgress = false;
-            StatusBarVisible = false;
-            StatusBarProgressValue = 0;
-            StatusBarProgressMaximum = 0;
         }
     }
 
@@ -213,6 +226,8 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+
+
     private void LogData(string message)
     {
         string formattedMessage = $"{message}";
@@ -224,6 +239,13 @@ public class MainWindowViewModel : ViewModelBase
     {
         try
         {
+            ShowLoadProgress = false;
+            StatusBarVisible = false;
+            StatusBarProgressValue = 0;
+            StatusBarProgressMaximum = 0;
+            SelectedFileName = string.Empty;
+            SelectedDirectory = string.Empty;
+
             var window = new Window();
             var filePickerService = new FilePickerService(window.StorageProvider);
 
@@ -234,6 +256,7 @@ public class MainWindowViewModel : ViewModelBase
                 foreach(var folderData in fileMetaData)
                 {
                     SelectedDirectory = folderData.Path.AbsolutePath;
+                    SelectedFileName = folderData.Name;
                 }
             }
         } catch(Exception ex)

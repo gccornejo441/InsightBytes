@@ -12,7 +12,7 @@
 
 	<Application.Resources>
 		<ResourceDictionary>
-			
+			<FontFamily x:Key="CascadiaCode">avares://GetnMethods/Assets/Fonts#CascadiaCode</FontFamily>
 			<ResourceDictionary.ThemeDictionaries>
 				<ResourceDictionary x:Key="Light">
 					<Color x:Key="BgColor">#ffffff</Color>

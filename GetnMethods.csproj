@@ -20,8 +20,15 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <AvaloniaResource Include="Assets\**" />
+    <None Remove="Assets\Fonts\CascadiaCode.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodeItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodePL.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodePLItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMono.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoPL.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoPLItalic.ttf" />
     <Content Include="Assets\report-repo.ico" />
-    <Folder Include="Properties\" />
     <Folder Include="Views\Views\" />
   </ItemGroup>
 

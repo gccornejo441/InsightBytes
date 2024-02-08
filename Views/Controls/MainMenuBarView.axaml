@@ -46,6 +46,12 @@
 						Foreground="#E06C75"
 						IconSource="Clear"
 						Label="Clear" />
+					<ui:CommandBarButton
+						Command="{Binding SwitchContextCommand}"
+						Foreground="#E06C75"
+						IconSource="References"
+						Label="Swap" />
+					
 				</ui:CommandBar.PrimaryCommands>
 			</ui:CommandBar>
 		</StackPanel>

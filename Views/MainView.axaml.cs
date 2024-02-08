@@ -13,14 +13,6 @@ public partial class MainView : UserControl
         InitializeComponent();
     }
 
-    private void NavPanelOnSelectionChanged(object? sender, NavigationViewSelectionChangedEventArgs e)
-    {
-        if (e.SelectedItem is NavigationViewItem navItem && navItem.Tag is not null)
-        {
-
-        }
-    }   
-
     private void Control_OnSizeChanged(object sender,SizeChangedEventArgs e)
     {
         if (e.HeightChanged)

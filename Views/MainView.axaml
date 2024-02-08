@@ -180,7 +180,8 @@
 							<SelectableTextBlock
 								x:Name="LogViewer"
 								Padding="10"
-								FontWeight="DemiBold"
+								FontFamily="Cascadia Code"
+								FontWeight="Normal"
 								Foreground="{DynamicResource NormalGreenDark}"
 								Text="{Binding LogMessages}" />
 						</ScrollViewer>

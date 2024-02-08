@@ -39,26 +39,20 @@
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition />
 				</Grid.ColumnDefinitions>
-				<Button
+				<ui:SymbolIcon
 					Width="25"
 					Height="25"
-					MinWidth="0"
-					Margin="0,0,5,0"
+					Margin="10,5,5,0"
 					VerticalAlignment="Center"
-					Background="Transparent"
-					Click="Refresh_OnClick">
-					<ui:SymbolIcon
-						Width="50"
-						Height="100"
-						Symbol="Refresh" />
-				</Button>
+					Foreground="{DynamicResource NormalYellowDark}"
+					Symbol="FolderFilled" />
 				<TextBlock
 					Name="LoadStatus"
 					Grid.Column="1"
 					Margin="0,0,5,0"
 					VerticalAlignment="Center"
 					IsVisible="True"
-					Text="StatusBarFileNameLoaded" />
+					Text="{Binding SelectedFileName}" />
 				<ProgressBar
 					Name="LoadProgressBar"
 					Grid.Column="2"
