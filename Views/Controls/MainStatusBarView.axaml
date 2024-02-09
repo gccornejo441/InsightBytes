@@ -64,6 +64,5 @@
 					Value="{Binding StatusBarProgressValue}" />
 			</Grid>
 		</StackPanel>
-
 	</Grid>
 </UserControl>

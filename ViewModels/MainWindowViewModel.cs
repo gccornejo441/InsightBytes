@@ -177,6 +177,7 @@ public class MainWindowViewModel : ViewModelBase
                 {
                     foreach(var signatureWithLineNumber in methodNames)
                     {
+                        await SimulateLongRunningOperationAsync();
                         LogData(signatureWithLineNumber);
                         StatusBarProgressValue++;
                     }
