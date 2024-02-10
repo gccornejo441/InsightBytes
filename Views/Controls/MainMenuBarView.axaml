@@ -49,7 +49,7 @@
 					<ui:CommandBarButton
 						Command="{Binding SwitchContextCommand}"
 						Foreground="#E06C75"
-						IconSource="References"
+						IconSource="Library"
 						Label="Swap" />
 					
 				</ui:CommandBar.PrimaryCommands>

@@ -139,11 +139,11 @@
 		<ui:NavigationView
 			Name="NavView"
 			Grid.RowSpan="2"
+			Margin="2,0,0,0"
 			AlwaysShowHeader="False"
 			Classes="AppNav"
 			IsBackButtonVisible="False"
 			IsPaneOpen="True"
-			Margin="2,0,0,0"
 			IsPaneToggleButtonVisible="False"
 			IsSettingsVisible="True"
 			PaneDisplayMode="LeftCompact">
@@ -168,11 +168,12 @@
 						Grid.Column="1"
 						VerticalAlignment="Stretch"
 						Background="{DynamicResource NormalBlackDark}"
+						BorderBrush="{DynamicResource NormalBlackDark}"
+						BorderThickness="0,0,0,0"
 						CornerRadius="0 0 0 0"
 						DockPanel.Dock="Bottom"
 						SizeChanged="Control_OnSizeChanged">
 						<ScrollViewer
-							x:Name="LogScrollViewer"
 							Name="ScrollOutputViewer"
 							Height="400"
 							VerticalAlignment="Stretch"
@@ -180,13 +181,22 @@
 							<SelectableTextBlock
 								x:Name="LogViewer"
 								Padding="10"
+								Background="Transparent"
 								FontFamily="Cascadia Code"
 								FontWeight="Normal"
 								Foreground="{DynamicResource NormalGreenDark}"
-								Text="{Binding LogMessages}" />
+								Text="{Binding LogMessages}">
+								<SelectableTextBlock.ContextFlyout>
+									<Flyout Placement="Top">
+										<StackPanel>
+											<MenuItem Command="{Binding SelectAllCommand}" Header="Select All" />
+											<MenuItem Command="{Binding ClearLogWindowCommand}" Header="Clear" />
+										</StackPanel>
+									</Flyout>
+								</SelectableTextBlock.ContextFlyout>
+							</SelectableTextBlock>
 						</ScrollViewer>
 					</Border>
-
 				</Grid>
 			</ui:NavigationView.Content>
 		</ui:NavigationView>

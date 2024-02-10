@@ -109,6 +109,8 @@ public class MainWindowViewModel : ViewModelBase
 
     public ICommand SwitchContextCommand { get; }
 
+    public ICommand SelectAllCommand { get; }
+
     public MainWindowViewModel()
     {
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
@@ -116,9 +118,15 @@ public class MainWindowViewModel : ViewModelBase
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
         DownloadCommand = ReactiveCommand.CreateFromTask(DownloadData);
         SwitchContextCommand = ReactiveCommand.Create(SwitchContext);
+        SelectAllCommand = ReactiveCommand.Create(SelectAll);
     }
 
-    private void SwitchContext()
+    void SelectAll()
+    {
+        
+    }
+
+    void SwitchContext()
     {
 
     }
