@@ -10,7 +10,7 @@ namespace GetnMethods.Services;
 
 public interface IAnalyzerService
 {
-    public Task<List<string>> GetAllMethodByNamesAsync(string fileName);
+    public Task<List<MethodSignature>> GetMethodSignatures(string fileName);
 
     public Task<Document> GetProjectByDocumentNameAsync(Project project, string documentName);
 

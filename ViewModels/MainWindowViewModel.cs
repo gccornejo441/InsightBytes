@@ -1,9 +1,14 @@
 ﻿
 using Avalonia.Controls;
+using Avalonia.Threading;
 
 using DialogHostAvalonia;
 
+using GetnMethods.Models;
+using GetnMethods.Products;
 using GetnMethods.Services;
+using GetnMethods.Utils;
+using GetnMethods.Yard;
 
 using ReactiveUI;
 
@@ -12,18 +17,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 using System.IO;
-
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Text;
 
 using System.Threading.Tasks;
-
+using System.Windows;
 using System.Windows.Input;
 
 namespace GetnMethods.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    ParserHelpers _parserHelpers;
+    CosmeticHelpers _cosmeticHelpers;
+
     private bool _showMenuAndStatusBar = true;
+
 
     public bool ShowMenuAndStatusBar
     {
@@ -100,122 +110,84 @@ public class MainWindowViewModel : ViewModelBase
     }
 
     public ICommand RunScriptCommand { get; }
-
     public ICommand GetFileCommand { get; }
-
     public ICommand ClearLogWindowCommand { get; }
-
     public ICommand DownloadCommand { get; }
-
     public ICommand SwitchContextCommand { get; }
-
     public ICommand SelectAllCommand { get; }
+    public Interaction<Unit,Unit> SelectAllTextInteraction { get; } = new Interaction<Unit,Unit>();
+    public Interaction<DownloadDialogViewModel,bool> ShowDownloadDialog { get; }
+
+    public readonly DialogWorker dialogWorker = new DialogWorker();
+    public Interaction<IDialogProduct, bool> ShowWarningDialog { get; }
 
     public MainWindowViewModel()
     {
+        _cosmeticHelpers = new CosmeticHelpers();
+        _parserHelpers = new ParserHelpers();
+
+        ShowWarningDialog = new Interaction<IDialogProduct, bool>();
+        ShowDownloadDialog = new Interaction<DownloadDialogViewModel, bool>();
+
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
         DownloadCommand = ReactiveCommand.CreateFromTask(DownloadData);
         SwitchContextCommand = ReactiveCommand.Create(SwitchContext);
-        SelectAllCommand = ReactiveCommand.Create(SelectAll);
-    }
-
-    void SelectAll()
-    {
-        
-    }
-
-    void SwitchContext()
-    {
-
-    }
-
-    void Clear()
-    {
-        if(!string.IsNullOrEmpty(LogMessages))
+        SelectAllCommand = ReactiveCommand.CreateFromTask(async () =>
         {
-            _logBuilder.Clear();
-            this.RaisePropertyChanged(nameof(LogMessages));
+            await SelectAllTextInteraction.Handle(Unit.Default);
+        });
 
-            ShowLoadProgress = false;
-            StatusBarVisible = false;
-            StatusBarProgressValue = 0;
-            StatusBarProgressMaximum = 0;
-            SelectedFileName = string.Empty;
-            SelectedDirectory = string.Empty;
 
-            LogMessages = "Cleared...";
-        } 
+    }
+
+    async void Clear()
+    {
+        IDialogProduct? warningDialog = dialogWorker.CreateDialog("Warning");
+        var result = await ShowWarningDialog.Handle(warningDialog);
+  
+
+        if (!string.IsNullOrEmpty(LogMessages))
+        {
+            if (result)
+            {
+                _logBuilder.Clear();
+                this.RaisePropertyChanged(nameof(LogMessages));
+
+                ShowLoadProgress = false;
+                StatusBarVisible = false;
+                StatusBarProgressValue = 0;
+                StatusBarProgressMaximum = 0;
+                SelectedFileName = string.Empty;
+                SelectedDirectory = string.Empty;
+
+                LogMessages = "Cleared...";
+            }
+            else
+            {
+                return;
+            }
+            
+        }
         else
         {
             LogMessages = "Nothing to clear.";
         }
     }
 
-    async Task Run()
-    {
-        if(string.IsNullOrWhiteSpace(_selectedDirectory))
-        {
-            _logBuilder.Clear();
-            this.RaisePropertyChanged(nameof(LogMessages));
-            LogData("Please select a directory to analyze methods.");
-            return;
-        }
-
-        try
-        {
-            _logBuilder.Clear();
-            this.RaisePropertyChanged(nameof(LogMessages));
-
-            StatusBarVisible = true;
-
-            var _analyzer = new AnalyzerService();
-
-            List<string> methodNames = await _analyzer.GetAllMethodByNamesAsync(_selectedDirectory);
-
-            StatusBarProgressMaximum = methodNames.Count;
-
-            if(methodNames.Count == 0)
-            {
-                LogData($"No methods found in the selected directory: {_selectedDirectory}");
-            } else
-            {
-                if(methodNames.Count >= 150)
-                {
-                    foreach(var signatureWithLineNumber in methodNames)
-                    {
-                        await SimulateLongRunningOperationAsync();
-                        LogData(signatureWithLineNumber);
-                        StatusBarProgressValue++;
-                    }
-                } else
-                {
-                    foreach(var signatureWithLineNumber in methodNames)
-                    {
-                        await SimulateLongRunningOperationAsync();
-                        LogData(signatureWithLineNumber);
-                        StatusBarProgressValue++;
-                    }
-                }
-            }
-        } catch(Exception ex)
-        {
-            Debug.WriteLine($"Exception occurred while analyzing methods: {ex.Message}");
-        }
-    }
-
-    public async Task SimulateLongRunningOperationAsync() { await Task.Delay(16); }
-
     private async Task DownloadData()
     {
+        var downloadVMDialog = new DownloadDialogViewModel();
+        var result = await ShowDownloadDialog.Handle(downloadVMDialog);
+
         try
         {
-            if(_logBuilder.Length == 0)
+            if (_logBuilder.Length == 0)
             {
                 DownloadMessage = "No data in log to download.";
 
-                DialogHost.Show(DownloadMessage);
+                await DialogHost.Show(DownloadMessage);
                 return;
             }
 
@@ -225,23 +197,77 @@ public class MainWindowViewModel : ViewModelBase
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "LogData.txt");
 
-            await File.WriteAllTextAsync(filePath, _logBuilder.ToString());
+            await File.WriteAllTextAsync(filePath,_logBuilder.ToString());
 
             DownloadMessage = $"Log data successfully saved to: {filePath}";
-            DialogHost.Show(DownloadMessage);
-        } catch(Exception ex)
+            await DialogHost.Show(DownloadMessage);
+        }
+        catch (Exception ex)
         {
             Debug.WriteLine($"Exception occurred while saving log data: {ex.Message}");
         }
     }
 
-
-
-    private void LogData(string message)
+    void SwitchContext()
     {
-        string formattedMessage = $"{message}";
 
+    }
+
+
+    // TODO: Refactor this method to use a StringBuilder
+    // TODO: Make generic to accept any type of data
+    /// <summary>
+    /// Used to log data to the log window supported by the <see cref="LogMessages"/> string property
+    /// </summary>
+    /// <param name="methodSignature"></param>
+    private void LogData(MethodSignature methodSignature)
+    {
+        string formattedMessage = methodSignature.ToString();
         LogMessages = formattedMessage + "\n";
+    }
+  
+    async Task Run()
+    {
+        if (string.IsNullOrWhiteSpace(_selectedDirectory))
+        {
+            _logBuilder.Clear();
+            this.RaisePropertyChanged(nameof(LogMessages));
+            LogData(new MethodSignature(0,DateTime.Now.ToString("HH:mm:ss"),"Please select a directory to analyze methods."));
+            return;
+        }
+
+        try
+        {
+            _logBuilder.Clear();
+
+            this.RaisePropertyChanged(nameof(LogMessages));
+
+            StatusBarVisible = true;
+
+            var _analyzer = new AnalyzerService(_parserHelpers); 
+
+            var methodSignatures = await _analyzer.GetMethodSignatures(_selectedDirectory);
+
+            StatusBarProgressMaximum = methodSignatures.Count;
+
+            if (methodSignatures.Count == 0)
+            {
+                LogData(new MethodSignature(0,DateTime.Now.ToString("HH:mm:ss"),$"No methods found in the selected directory: {_selectedDirectory}"));
+            }
+            else
+            {
+                foreach (var methodSignature in methodSignatures)
+                {
+                    await _cosmeticHelpers.SimulateLongRunningOperationAsync();
+                    LogData(methodSignature);
+                    StatusBarProgressValue++;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Exception occurred while analyzing methods: {ex.Message}");
+        }
     }
 
     private async Task SelectFileAsync()
@@ -255,7 +281,7 @@ public class MainWindowViewModel : ViewModelBase
             SelectedFileName = string.Empty;
             SelectedDirectory = string.Empty;
 
-            var window = new Window();
+            var window = new Avalonia.Controls.Window();
             var filePickerService = new FilePickerService(window.StorageProvider);
 
             var fileMetaData = await filePickerService.OpenFilePickerAsync();
