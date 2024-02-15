@@ -10,21 +10,34 @@ using GetnMethods.ViewModels;
 using ReactiveUI;
 
 namespace GetnMethods.Products;
-public class DownloadDialogProduct : Window, IDialogProduct
+public class DownloadDialogProduct : BaseDialogProduct, IDialogProduct
 {
     public DownloadDialogProduct()
     {
         var baseDialogViewModel = new BaseDialogProductViewModel();
         this.Title = "Download";
-
         baseDialogViewModel.DialogTitle = "Downloading";
+        baseDialogViewModel.DialogSubTitle = "Downloading";
+        var isConfirmed = baseDialogViewModel.IsConfirmed;
+
+
         this.DataContext = baseDialogViewModel;
 
+        CloseDialog(baseDialogViewModel);
     }
-    public void CloseDialog()
+
+    /// <summary>
+    /// Closes the dialog by invoking the RequestClose event from the BaseDialogProductViewModel
+    /// </summary>
+    /// <param name="baseDialogProductViewModel"></param>
+    public void CloseDialog(BaseDialogProductViewModel baseDialogProductViewModel)
     {
-        this.Close();
+        baseDialogProductViewModel.RequestClose += (dialogResult) =>
+        {
+            this.Close(dialogResult);
+        };
     }
+
 
     public void ShowDialog()
     {

@@ -17,6 +17,8 @@ public class DialogWorker
                 return new DownloadDialogProduct();
             case "Warning":
                 return new WarningDialogProduct();
+            case "Confirm":
+                return new ConfirmDialogProduct();
             default:
                 throw new ArgumentException("Unknown dialog type",nameof(dialogType));
         }

@@ -10,6 +10,6 @@ namespace GetnMethods.Products;
 public interface IDialogProduct : IDataContextProvider
 {
     void ShowDialog();
-    void CloseDialog();
+    void CloseDialog(BaseDialogProductViewModel baseDialogProductViewModel);
 
 }

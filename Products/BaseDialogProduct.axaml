@@ -7,9 +7,9 @@
 	xmlns:vm="clr-namespace:GetnMethods.Products"
 	x:DataType="vm:BaseDialogProductViewModel"
 	Title="Download"
-	d:DesignHeight="170"
+	d:DesignHeight="190"
 	d:DesignWidth="400"
-	Height="250"
+	Height="190"
 	Width="400"
 	ExtendClientAreaToDecorationsHint="True"
 	TransparencyLevelHint="AcrylicBlur"
@@ -37,13 +37,13 @@
 						Text="{Binding DialogTitle}" />
 				</StackPanel>
 				<StackPanel Margin="10" DockPanel.Dock="Top">
-					<TextBlock Text="{Binding DialogSubTitle}" />
+					<TextBlock FontSize="16" Text="{Binding DialogSubTitle}" TextWrapping="Wrap" />
 				</StackPanel>
 				<StackPanel Margin="10" DockPanel.Dock="Bottom">
 					<!--<ProgressBar Name="ProgressBar" IsIndeterminate="True" />-->
-					<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-						<!--<Button Name="OkButton" Content="OK" Command="{Binding OkCommand}" />-->
-						<Button Name="CancelButton" Content="Cancel" Command="{Binding CancelCommand}" />
+					<StackPanel Spacing="20" HorizontalAlignment="Center" Orientation="Horizontal">
+						<Button Width="80" Name="OkButton" Content="OK" Command="{Binding ConfirmCommand}" />
+						<Button Width="80" Name="CancelButton" Content="Cancel" Command="{Binding CancelCommand}" />
 					</StackPanel>
 				</StackPanel>
 			</StackPanel>

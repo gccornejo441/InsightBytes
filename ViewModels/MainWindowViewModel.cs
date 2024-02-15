@@ -1,6 +1,11 @@
-﻿
-using Avalonia.Controls;
-using Avalonia.Threading;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 using DialogHostAvalonia;
 
@@ -11,19 +16,6 @@ using GetnMethods.Utils;
 using GetnMethods.Yard;
 
 using ReactiveUI;
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-using System.IO;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Text;
-
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace GetnMethods.ViewModels;
 
@@ -38,7 +30,7 @@ public class MainWindowViewModel : ViewModelBase
     public bool ShowMenuAndStatusBar
     {
         get => _showMenuAndStatusBar;
-        set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar, value);
+        set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar,value);
     }
 
     private bool _showLoadProgress;
@@ -46,7 +38,7 @@ public class MainWindowViewModel : ViewModelBase
     public bool ShowLoadProgress
     {
         get => _showLoadProgress;
-        set => this.RaiseAndSetIfChanged(ref _showLoadProgress, value);
+        set => this.RaiseAndSetIfChanged(ref _showLoadProgress,value);
     }
 
     private bool _statusBarVisible = false;
@@ -54,7 +46,7 @@ public class MainWindowViewModel : ViewModelBase
     public bool StatusBarVisible
     {
         get => _statusBarVisible;
-        set => this.RaiseAndSetIfChanged(ref _statusBarVisible, value);
+        set => this.RaiseAndSetIfChanged(ref _statusBarVisible,value);
     }
 
     private int _statusBarProgressMaximum = 100;
@@ -62,7 +54,7 @@ public class MainWindowViewModel : ViewModelBase
     public int StatusBarProgressMaximum
     {
         get => _statusBarProgressMaximum;
-        set => this.RaiseAndSetIfChanged(ref _statusBarProgressMaximum, value);
+        set => this.RaiseAndSetIfChanged(ref _statusBarProgressMaximum,value);
     }
 
     private int _statusBarProgressValue = 0;
@@ -70,7 +62,7 @@ public class MainWindowViewModel : ViewModelBase
     public int StatusBarProgressValue
     {
         get => _statusBarProgressValue;
-        set => this.RaiseAndSetIfChanged(ref _statusBarProgressValue, value);
+        set => this.RaiseAndSetIfChanged(ref _statusBarProgressValue,value);
     }
 
     private StringBuilder _logBuilder = new StringBuilder();
@@ -80,7 +72,7 @@ public class MainWindowViewModel : ViewModelBase
     public string SelectedFileName
     {
         get => _selectedFileName;
-        set => this.RaiseAndSetIfChanged(ref _selectedFileName, value);
+        set => this.RaiseAndSetIfChanged(ref _selectedFileName,value);
     }
 
     private string _selectedDirectory;
@@ -88,7 +80,7 @@ public class MainWindowViewModel : ViewModelBase
     public string SelectedDirectory
     {
         get => _selectedDirectory;
-        set => this.RaiseAndSetIfChanged(ref _selectedDirectory, value);
+        set => this.RaiseAndSetIfChanged(ref _selectedDirectory,value);
     }
 
     public string LogMessages
@@ -106,7 +98,14 @@ public class MainWindowViewModel : ViewModelBase
     public string DownloadMessage
     {
         get => _downloadMessage;
-        set => this.RaiseAndSetIfChanged(ref _downloadMessage, value);
+        set => this.RaiseAndSetIfChanged(ref _downloadMessage,value);
+    }
+
+    private string _dialogCalled;
+    public string DialogCalled
+    {
+        get => _dialogCalled;
+        set => this.RaiseAndSetIfChanged(ref _dialogCalled,value);
     }
 
     public ICommand RunScriptCommand { get; }
@@ -119,15 +118,15 @@ public class MainWindowViewModel : ViewModelBase
     public Interaction<DownloadDialogViewModel,bool> ShowDownloadDialog { get; }
 
     public readonly DialogWorker dialogWorker = new DialogWorker();
-    public Interaction<IDialogProduct, bool> ShowWarningDialog { get; }
+    public Interaction<IDialogProduct,bool> ShowNotificationDialog { get; }
 
     public MainWindowViewModel()
     {
         _cosmeticHelpers = new CosmeticHelpers();
         _parserHelpers = new ParserHelpers();
 
-        ShowWarningDialog = new Interaction<IDialogProduct, bool>();
-        ShowDownloadDialog = new Interaction<DownloadDialogViewModel, bool>();
+        ShowNotificationDialog = new Interaction<IDialogProduct,bool>();
+        ShowDownloadDialog = new Interaction<DownloadDialogViewModel,bool>();
 
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
@@ -144,13 +143,14 @@ public class MainWindowViewModel : ViewModelBase
 
     async void Clear()
     {
+        DialogCalled = "Warning";
         IDialogProduct? warningDialog = dialogWorker.CreateDialog("Warning");
-        var result = await ShowWarningDialog.Handle(warningDialog);
-  
+        var result = await ShowNotificationDialog.Handle(warningDialog);
+
 
         if (!string.IsNullOrEmpty(LogMessages))
         {
-            if (result)
+            if (!result)
             {
                 _logBuilder.Clear();
                 this.RaisePropertyChanged(nameof(LogMessages));
@@ -168,7 +168,7 @@ public class MainWindowViewModel : ViewModelBase
             {
                 return;
             }
-            
+
         }
         else
         {
@@ -178,8 +178,13 @@ public class MainWindowViewModel : ViewModelBase
 
     private async Task DownloadData()
     {
-        var downloadVMDialog = new DownloadDialogViewModel();
-        var result = await ShowDownloadDialog.Handle(downloadVMDialog);
+        //var downloadVMDialog = new DownloadDialogViewModel();
+        //var result = await ShowDownloadDialog.Handle(downloadVMDialog);
+
+        DialogCalled = "Download";
+        IDialogProduct? downloadDialog = dialogWorker.CreateDialog("Download");
+        var result = await ShowNotificationDialog.Handle(downloadDialog);
+
 
         try
         {
@@ -225,7 +230,7 @@ public class MainWindowViewModel : ViewModelBase
         string formattedMessage = methodSignature.ToString();
         LogMessages = formattedMessage + "\n";
     }
-  
+
     async Task Run()
     {
         if (string.IsNullOrWhiteSpace(_selectedDirectory))
@@ -244,7 +249,7 @@ public class MainWindowViewModel : ViewModelBase
 
             StatusBarVisible = true;
 
-            var _analyzer = new AnalyzerService(_parserHelpers); 
+            var _analyzer = new AnalyzerService(_parserHelpers);
 
             var methodSignatures = await _analyzer.GetMethodSignatures(_selectedDirectory);
 
@@ -286,15 +291,16 @@ public class MainWindowViewModel : ViewModelBase
 
             var fileMetaData = await filePickerService.OpenFilePickerAsync();
 
-            if(fileMetaData != null)
+            if (fileMetaData != null)
             {
-                foreach(var folderData in fileMetaData)
+                foreach (var folderData in fileMetaData)
                 {
                     SelectedDirectory = folderData.Path.AbsolutePath;
                     SelectedFileName = folderData.Name;
                 }
             }
-        } catch(Exception ex)
+        }
+        catch (Exception ex)
         {
         }
     }

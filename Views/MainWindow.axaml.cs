@@ -19,23 +19,35 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
         this.WhenActivated(
             d =>
             {
-                ViewModel?.ShowDownloadDialog.RegisterHandler(HandleDownloadDialog); // The Dispose method is called to clean up the handler when the view is deactivated.
-                ViewModel?.ShowWarningDialog.RegisterHandler(HandleWarningDialog);
+                ViewModel?.ShowDownloadDialog.RegisterHandler(HandleDownloadDialog);
+                ViewModel?.ShowNotificationDialog.RegisterHandler(HandleNotificationDialog);
             });
     }
 
 
-    private async Task HandleWarningDialog(InteractionContext<IDialogProduct, bool> interaction)
+    private async Task HandleNotificationDialog(InteractionContext<IDialogProduct, bool> interaction)
     {
+        var currentDialog = ViewModel?.DialogCalled;
 
         try
         {
-            var warningDialog = new WarningDialogProduct();
-            warningDialog.DataContext = interaction.Input;
+            if (currentDialog == "Warning")
+            {
+                var warningDialog = new WarningDialogProduct();
+                warningDialog.DataContext = interaction.Input;
+                var result = await warningDialog.ShowDialog<bool>(this);
+                interaction.SetOutput(result);
 
-            var result = await warningDialog.ShowDialog<bool>(this);
-            interaction.SetOutput(result);
-          
+            } else if (currentDialog == "Download")
+            {
+                var downloadDialog = new DownloadDialogProduct();
+                downloadDialog.DataContext = interaction.Input;
+                var result = await downloadDialog.ShowDialog<bool>(this);
+                interaction.SetOutput(result);
+
+            }
+
+
         }
         catch (Exception ex)
         {
