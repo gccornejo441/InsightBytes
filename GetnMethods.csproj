@@ -20,6 +20,7 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
     <Compile Remove="Products\BaseDialogProduct.cs" />
+    <Compile Remove="Products\ProductControls\DownloadDialogControl.cs" />
     <None Remove="Assets\Fonts\CascadiaCode.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodeItalic.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodePL.ttf" />
@@ -48,6 +49,13 @@
 	<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.8.0" />
 	<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.8.0" />
 	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Products\ProductControls\BaseDialog.axaml.cs">
+	    <DependentUpon>BaseDialog.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 

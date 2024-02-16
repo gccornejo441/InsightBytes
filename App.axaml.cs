@@ -1,6 +1,11 @@
+using System;
+
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 
 using GetnMethods.ViewModels;
 using GetnMethods.Views;
@@ -13,6 +18,16 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
+    //private void SetApplicationIcon(Window window)
+    //{
+    //    var iconPath = "Assets/report-repo.ico";
+        
+        
+    //    var icon = new Bitmap($"avares://GetNMethods/{iconPath}");
+    //    window.Icon = new WindowIcon(icon);
+    //}
+
+
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -21,6 +36,7 @@ public partial class App : Application
             {
                 DataContext = new MainWindowViewModel(),
             };
+            //SetApplicationIcon(desktop.MainWindow);
         }
 
         base.OnFrameworkInitializationCompleted();

@@ -11,6 +11,7 @@ using DialogHostAvalonia;
 
 using GetnMethods.Models;
 using GetnMethods.Products;
+using GetnMethods.Products.ProductViewModels;
 using GetnMethods.Services;
 using GetnMethods.Utils;
 using GetnMethods.Yard;
@@ -119,6 +120,12 @@ public class MainWindowViewModel : ViewModelBase
 
     public readonly DialogWorker dialogWorker = new DialogWorker();
     public Interaction<IDialogProduct,bool> ShowNotificationDialog { get; }
+    private string _notificationMessage;
+    public string NotificationMessage
+    {
+        get => _notificationMessage;
+        set => this.RaiseAndSetIfChanged(ref _notificationMessage,value);
+    }
 
     public MainWindowViewModel()
     {
@@ -126,13 +133,11 @@ public class MainWindowViewModel : ViewModelBase
         _parserHelpers = new ParserHelpers();
 
         ShowNotificationDialog = new Interaction<IDialogProduct,bool>();
-        ShowDownloadDialog = new Interaction<DownloadDialogViewModel,bool>();
 
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
         RunScriptCommand = ReactiveCommand.CreateFromTask(Run);
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
         DownloadCommand = ReactiveCommand.CreateFromTask(DownloadData);
-        SwitchContextCommand = ReactiveCommand.Create(SwitchContext);
         SelectAllCommand = ReactiveCommand.CreateFromTask(async () =>
         {
             await SelectAllTextInteraction.Handle(Unit.Default);
@@ -176,46 +181,63 @@ public class MainWindowViewModel : ViewModelBase
         }
     }
 
+    public class UiTitlesModel
+    {
+        public string DialogType { get; set; }
+        public string WindowTitle { get; set; }
+        public string DialogTitle { get; set; }
+        public string DialogSubTitle { get; set; }
+
+    }
+
+
+
     private async Task DownloadData()
     {
-        //var downloadVMDialog = new DownloadDialogViewModel();
-        //var result = await ShowDownloadDialog.Handle(downloadVMDialog);
-
-        DialogCalled = "Download";
-        IDialogProduct? downloadDialog = dialogWorker.CreateDialog("Download");
-        var result = await ShowNotificationDialog.Handle(downloadDialog);
-
 
         try
         {
             if (_logBuilder.Length == 0)
             {
-                DownloadMessage = "No data in log to download.";
+                UiTitlesModel uiTitlesModel = new UiTitlesModel
+                {
+                    DialogType = "Warning",
+                    WindowTitle = "Warning",
+                    DialogTitle = "Warning!",
+                    DialogSubTitle = "No data in log to download."
+                };
 
-                await DialogHost.Show(DownloadMessage);
+                await ShowDialog(uiTitlesModel);
                 return;
             }
 
-            // Specify the path where the log file will be saved
-            // Consider asking the user for a location or using a common location
             string filePath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
                 "LogData.txt");
 
             await File.WriteAllTextAsync(filePath,_logBuilder.ToString());
 
-            DownloadMessage = $"Log data successfully saved to: {filePath}";
-            await DialogHost.Show(DownloadMessage);
+            NotificationMessage = $"Log data successfully saved to: {filePath}";
+            IDialogProduct? downloadDialog = dialogWorker.CreateDialog("Download");
+            await ShowNotificationDialog.Handle(downloadDialog);
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception occurred while saving log data: {ex.Message}");
+            NotificationMessage = $"Exception occurred while saving log data: {ex.Message}";
+            IDialogProduct? warningDialog = dialogWorker.CreateDialog("Warning");
+            await ShowNotificationDialog.Handle(warningDialog);
+
         }
     }
 
-    void SwitchContext()
+    private async Task ShowDialog(UiTitlesModel titles)
     {
-
+        DialogCalled = titles.DialogType;
+        IDialogProduct? dialog = dialogWorker.CreateDialog(titles.DialogType);
+        if (dialog != null)
+        {
+            await ShowNotificationDialog.Handle(dialog);
+        }
     }
 
 

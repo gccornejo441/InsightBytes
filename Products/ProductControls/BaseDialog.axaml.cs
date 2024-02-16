@@ -6,9 +6,9 @@ using ReactiveUI;
 
 namespace GetnMethods;
 
-public partial class BaseDialogProduct : Window
+public partial class BaseDialog : Window
 {
-    public BaseDialogProduct()
+    public BaseDialog()
     {
         InitializeComponent();
     }

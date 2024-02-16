@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using GetnMethods.Products;
+using GetnMethods.Products.ProductViewModels;
 
 namespace GetnMethods.Yard;
 public class DialogWorker
@@ -14,11 +15,9 @@ public class DialogWorker
         switch (dialogType)
         {
             case "Download":
-                return new DownloadDialogProduct();
+                return new DownloadDialogViewModel();
             case "Warning":
                 return new WarningDialogProduct();
-            case "Confirm":
-                return new ConfirmDialogProduct();
             default:
                 throw new ArgumentException("Unknown dialog type",nameof(dialogType));
         }

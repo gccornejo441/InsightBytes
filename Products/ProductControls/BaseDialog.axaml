@@ -1,12 +1,12 @@
 <Window
-	x:Class="GetnMethods.BaseDialogProduct"
+	x:Class="GetnMethods.BaseDialog"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:vm="clr-namespace:GetnMethods.Products"
-	x:DataType="vm:BaseDialogProductViewModel"
-	Title="Download"
+	xmlns:vm="clr-namespace:GetnMethods.Products.ProductViewModels"
+	x:DataType="vm:BaseDialogViewModel"
+	Title="{Binding WindowTitle}"
 	d:DesignHeight="190"
 	d:DesignWidth="400"
 	Height="190"
@@ -49,6 +49,5 @@
 			</StackPanel>
 		</DockPanel>
 	</Panel>
-
 
 </Window>
