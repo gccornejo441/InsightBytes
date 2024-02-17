@@ -1,15 +1,18 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-
-using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+
+using FluentAvalonia.UI.Windowing;
 
 using GetnMethods.Products;
 using GetnMethods.Products.ProductViewModels;
+
+
 using GetnMethods.ViewModels;
 
 using ReactiveUI;
+
+using System;
+
+using System.Threading.Tasks;
 
 namespace GetnMethods.Views;
 public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
@@ -18,14 +21,25 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     public MainWindow()
     {
         InitializeComponent();
+
+        AppWindow app = new AppWindow();
+        if(!MainAppSplashScreen.IsInitialized)
+        {
+            app.SplashScreen = new MainAppSplashScreen();
+            MainAppSplashScreen.IsInitialized = true;
+        }
+        else
+        {
+            app.SplashScreen = null;
+        }
+
+
         this.WhenActivated(
             d =>
             {
                 ViewModel?.ShowNotificationDialog.RegisterHandler(HandleNotificationDialog);
             });
     }
-
- 
 
     private async Task HandleNotificationDialog(InteractionContext<IDialogProduct, bool> interaction)
     {
@@ -60,8 +74,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 
             interaction.SetOutput(false);
         }
-
-
     }
 
     private void LogError(Exception ex)
@@ -71,6 +83,4 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
 
         warningDialog.Show();
     }
-
-
 }

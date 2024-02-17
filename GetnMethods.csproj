@@ -56,6 +56,9 @@
 	  <Compile Update="Products\ProductControls\BaseDialog.axaml.cs">
 	    <DependentUpon>BaseDialog.axaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Views\Controls\MainAppSplashContent.axaml.cs">
+	    <DependentUpon>MainAppSplashContent.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 
