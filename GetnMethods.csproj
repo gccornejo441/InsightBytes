@@ -21,6 +21,7 @@
     <AvaloniaResource Include="Assets\**" />
     <Compile Remove="Products\BaseDialogProduct.cs" />
     <Compile Remove="Products\ProductControls\DownloadDialogControl.cs" />
+    <Compile Remove="ViewModels\MainWindowViewModel1.cs" />
     <None Remove="Assets\Fonts\CascadiaCode.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodeItalic.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodePL.ttf" />

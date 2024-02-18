@@ -25,6 +25,7 @@
 	</Application.Resources>
 	<Application.Styles>
 		<sty:FluentAvaloniaTheme PreferSystemTheme="False" PreferUserAccentColor="True" />
+		<StyleInclude Source="avares://GetnMethods/Views/Controls/ProgressBar.axaml" />
 		<StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml" />
 		<StyleInclude Source="avares://GetnMethods/Styles/CustomTheme.axaml"/>
 	</Application.Styles>

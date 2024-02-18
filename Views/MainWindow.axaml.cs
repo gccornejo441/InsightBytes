@@ -22,18 +22,6 @@ public partial class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         InitializeComponent();
 
-        AppWindow app = new AppWindow();
-        if(!MainAppSplashScreen.IsInitialized)
-        {
-            app.SplashScreen = new MainAppSplashScreen();
-            MainAppSplashScreen.IsInitialized = true;
-        }
-        else
-        {
-            app.SplashScreen = null;
-        }
-
-
         this.WhenActivated(
             d =>
             {

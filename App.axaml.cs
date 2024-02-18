@@ -1,19 +1,23 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Platform;
+using Avalonia.Threading;
 
 using FluentAvalonia.UI.Windowing;
 
+using GetnMethods.Products.ProductViewModels;
 using GetnMethods.ViewModels;
+
 using GetnMethods.Views;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GetnMethods;
 public partial class App : Application
@@ -23,42 +27,41 @@ public partial class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    //private void SetApplicationIcon(Window window)
-    //{
-    //    var iconPath = "Assets/report-repo.ico";
-        
-        
-    //    var icon = new Bitmap($"avares://GetNMethods/{iconPath}");
-    //    window.Icon = new WindowIcon(icon);
-    //}
-
-
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var splashScreen = new MainAppSplashScreen();
-            ShowSplashScreen(splashScreen);
 
-            desktop.MainWindow = new MainWindow
+            try
             {
-                DataContext = new MainWindowViewModel(),
-            };
+                var splashScreen = new MainAppSplashScreen();
+                if (!MainAppSplashScreen.IsInitialized)
+                {
+                    MainAppSplashScreen.IsInitialized = true;
+                    Dispatcher.UIThread.InvokeAsync(async () =>
+                    {
+                        await ShowSplashScreen(splashScreen,desktop);
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                var warningDialog = new WarningDialogProduct("Warning","Warning!",ex.Message);
+                warningDialog.ShowDialog();
+            }
 
-            desktop.MainWindow.Show();
-
-            //SetApplicationIcon(desktop.MainWindow);
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private async void ShowSplashScreen(MainAppSplashScreen splashScreen)
+    private async Task ShowSplashScreen(MainAppSplashScreen splashScreen,IClassicDesktopStyleApplicationLifetime desktop)
     {
         // Create a window to host the splash screen content
         var splashWindow = new Window
         {
             // Set basic properties for the splash screen window
+            SystemDecorations = SystemDecorations.None,
             Width = 600, // Adjust size as needed
             Height = 400, // Adjust size as needed
             CanResize = false,
@@ -81,17 +84,21 @@ public partial class App : Application
         // Show the splash screen window
         splashWindow.Show();
 
-        // Ensure the splash screen is shown for a minimum amount of time
         var minimumShowTimeTask = Task.Delay(splashScreen.MinimumShowTime);
+        var runTasks = splashScreen.RunTasks(CancellationToken.None);
 
-        // Run any background tasks needed before the application starts
-        var runTasksTask = splashScreen.RunTasks(CancellationToken.None);
+        await Task.WhenAll(minimumShowTimeTask,runTasks);
 
-        // Wait for both the minimum show time and the background tasks to complete
-        await Task.WhenAll(minimumShowTimeTask,runTasksTask);
 
-        // Close the splash screen once tasks are complete
+        var mainWindow = new MainWindow
+        {
+            DataContext = new MainWindowViewModel()
+        };
+
+        desktop.MainWindow = mainWindow;
+        desktop.MainWindow.Show();
         splashWindow.Close();
+
     }
 
 }
@@ -117,7 +124,7 @@ public class MainAppSplashScreen : IApplicationSplashScreen
     public async Task RunTasks(CancellationToken cancellationToken)
     {
         // Simulate or run actual background tasks here
-        await Task.Delay(20000,cancellationToken); // Simulate a task with 2 seconds delay
+        await Task.Delay(2000,cancellationToken); // Simulate a task with 2 seconds delay
     }
 
 }

@@ -12,7 +12,7 @@
 	Title="GetnMethods"
 	d:DesignHeight="550"
 	d:DesignWidth="1000"
-	WindowState="Normal"
+	WindowState="Maximized"
 	x:DataType="vm:MainWindowViewModel"
 	Background="Transparent"
 	ExtendClientAreaToDecorationsHint="True"

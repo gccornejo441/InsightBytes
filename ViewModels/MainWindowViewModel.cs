@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 using DialogHostAvalonia;
 
+using FluentAvalonia.UI.Windowing;
+
 using GetnMethods.Models;
 using GetnMethods.Products;
 using GetnMethods.Products.ProductViewModels;
