@@ -31,58 +31,56 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-
-            try
+            if (ApplicationSplashScreen.IsInitialized)
             {
-                var splashScreen = new MainAppSplashScreen();
-                if (!MainAppSplashScreen.IsInitialized)
-                {
-                    MainAppSplashScreen.IsInitialized = true;
-                    Dispatcher.UIThread.InvokeAsync(async () =>
-                    {
-                        await ShowSplashScreen(splashScreen,desktop);
-                    });
-                }
-            }
-            catch (Exception ex)
-            {
-                var warningDialog = new WarningDialogProduct("Warning","Warning!",ex.Message);
-                warningDialog.ShowDialog();
+                base.OnFrameworkInitializationCompleted();
+                return;
             }
 
+            ApplicationSplashScreen.IsInitialized = true;
+
+            Dispatcher.UIThread.InvokeAsync(() => ShowSplashScreenAsync(desktop));
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private async Task ShowSplashScreen(MainAppSplashScreen splashScreen,IClassicDesktopStyleApplicationLifetime desktop)
+    private async Task ShowSplashScreenAsync(IClassicDesktopStyleApplicationLifetime desktop)
     {
-        // Create a window to host the splash screen content
-        var splashWindow = new Window
+        try
         {
-            // Set basic properties for the splash screen window
-            SystemDecorations = SystemDecorations.None,
-            Width = 600, // Adjust size as needed
-            Height = 400, // Adjust size as needed
-            CanResize = false,
-            WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            ShowInTaskbar = false // Optional: depending on whether you want it to appear in the taskbar
-        };
+            throw new InvalidOperationException("This is a test exception");
+            throw new Exception("This is a test exception");
+            var splashScreen = new ApplicationSplashScreen();
+            await ShowSplashScreen(splashScreen,desktop);
+        }
+        catch (Exception ex)
+        {
+            
+                var warningDialog = new WarningDialogProduct("Failed","Application start up has failed",ex.Message);
+                warningDialog.ShowDialog();
+        }
+    }
 
-        // Assuming SplashScreenContent is a UserControl or a visual element
+    /// <summary>
+    /// Shows the splash screen for the application.
+    /// </summary>
+    /// <param name="splashScreen"></param>
+    /// <param name="desktop"></param>
+    /// <returns>
+    /// Returns a new instance of the <see cref="Task"/> class which must be awaited.
+    /// </returns>
+    private async Task ShowSplashScreen(ApplicationSplashScreen splashScreen,IClassicDesktopStyleApplicationLifetime desktop)
+    {
+        var splashModel = CreateSplashWindow(splashScreen);
+
         if (splashScreen.SplashScreenContent is Control content)
-        {
-            splashWindow.Content = content;
-        }
-
-        // Optionally, set the window's icon if AppIcon is provided
+            splashModel.Content = content;
+        
         if (splashScreen.AppIcon is Bitmap appIconBitmap)
-        {
-            splashWindow.Icon = new WindowIcon(appIconBitmap);
-        }
-
-        // Show the splash screen window
-        splashWindow.Show();
+            splashModel.Icon = new WindowIcon(appIconBitmap);
+        
+        splashModel.Show();
 
         var minimumShowTimeTask = Task.Delay(splashScreen.MinimumShowTime);
         var runTasks = splashScreen.RunTasks(CancellationToken.None);
@@ -97,18 +95,50 @@ public partial class App : Application
 
         desktop.MainWindow = mainWindow;
         desktop.MainWindow.Show();
-        splashWindow.Close();
+        splashModel.Close();
 
+    }
+
+    /// <summary>
+    /// Creates the splash window for the application.
+    /// </summary>
+    /// <param name="splashScreen"></param>
+    /// <returns>
+    /// Returns a new instance of the <see cref="Window"/> class.
+    /// </returns>
+    private Window CreateSplashWindow(ApplicationSplashScreen splashScreen)
+    {
+        var splashWindow = new Window
+        {
+            Width = 600,
+            Height = 400,
+            CanResize = false,
+            SystemDecorations = SystemDecorations.None,
+            ExtendClientAreaToDecorationsHint = true,
+            WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            ShowInTaskbar = false 
+        };
+
+        if (splashScreen.SplashScreenContent is Control content)
+        {
+            splashWindow.Content = content;
+        }
+
+        if (splashScreen.AppIcon is Bitmap appIconBitmap)
+        {
+            splashWindow.Icon = new WindowIcon(appIconBitmap);
+        }
+
+        return splashWindow;
     }
 
 }
 
 
-
 /// <summary>
 /// This class is used to display the splash screen for the application.
 /// </summary>
-public class MainAppSplashScreen : IApplicationSplashScreen
+public class ApplicationSplashScreen : IApplicationSplashScreen
 {
 
     public static bool IsInitialized = false;
@@ -123,8 +153,7 @@ public class MainAppSplashScreen : IApplicationSplashScreen
 
     public async Task RunTasks(CancellationToken cancellationToken)
     {
-        // Simulate or run actual background tasks here
-        await Task.Delay(2000,cancellationToken); // Simulate a task with 2 seconds delay
+        await Task.Delay(2000,cancellationToken);
     }
 
 }
