@@ -19,9 +19,19 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
+    <AvaloniaXaml Remove="Views\Controls\CoreView.axaml" />
+    <Compile Remove="Controls\ControlDefinitionOverlay.cs" />
+    <Compile Remove="Controls\ControlExample.cs" />
+    <Compile Remove="Controls\ControlExampleSubstitution.cs" />
+    <Compile Remove="Controls\SampleCodePresenter.cs" />
+    <Compile Remove="Pages\ControlsPageBase.cs" />
     <Compile Remove="Products\BaseDialogProduct.cs" />
     <Compile Remove="Products\ProductControls\DownloadDialogControl.cs" />
+    <Compile Remove="ViewModels\CoreControlsPageViewModel.cs" />
+    <Compile Remove="ViewModels\FAControlsOverviewPageViewModel.cs" />
+    <Compile Remove="ViewModels\MainViewViewModel.cs" />
     <Compile Remove="ViewModels\MainWindowViewModel1.cs" />
+    <Compile Remove="Views\Controls\CoreView.axaml.cs" />
     <None Remove="Assets\Fonts\CascadiaCode.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodeItalic.ttf" />
     <None Remove="Assets\Fonts\CascadiaCodePL.ttf" />
@@ -30,18 +40,33 @@
     <None Remove="Assets\Fonts\CascadiaMonoItalic.ttf" />
     <None Remove="Assets\Fonts\CascadiaMonoPL.ttf" />
     <None Remove="Assets\Fonts\CascadiaMonoPLItalic.ttf" />
+    <Content Include="Assets\Images\AvGithub.png" />
+    <Content Include="Assets\Images\Documentation.png" />
+    <Content Include="Assets\Images\FAHeader2.png" />
+    <Content Include="Assets\Images\FAHeader2_Dark.png" />
+    <Content Include="Assets\Images\FAHeaderBackground.png" />
+    <Content Include="Assets\Images\FAHeaderBackground_Dark.png" />
+    <Content Include="Assets\Images\FAHeader_CoreControls.png" />
+    <Content Include="Assets\Images\FAHeader_CoreControls_Dark.png" />
+    <Content Include="Assets\Images\FAHeader_NewControls.png" />
+    <Content Include="Assets\Images\FAHeader_NewControls_Dark.png" />
+    <Content Include="Assets\Images\FluentDesign.png" />
+    <Content Include="Assets\Images\Github.png" />
     <Content Include="Assets\report-repo.ico" />
   </ItemGroup>
 
 
 	<ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.0.90" />
     <PackageReference Include="Avalonia" Version="11.0.8" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.0.6" />
     <PackageReference Include="Avalonia.Desktop" Version="11.0.8" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.8" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.8" />
     <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.8" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.8" />
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="11.0.6" />
     <PackageReference Include="DialogHost.Avalonia" Version="0.7.7" />
     <PackageReference Include="FluentAvaloniaUI" Version="2.0.5" />
 	<PackageReference Include="Microsoft.Build.Locator" Version="1.7.1" />
@@ -59,6 +84,9 @@
 	  </Compile>
 	  <Compile Update="Views\Controls\MainAppSplashContent.axaml.cs">
 	    <DependentUpon>MainAppSplashContent.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\SettingsPage.axaml.cs">
+	    <DependentUpon>SettingsPage.axaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 

@@ -7,11 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+using Avalonia.Collections;
+using Avalonia.Controls;
+
 using DialogHostAvalonia;
 
+using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Windowing;
 
 using GetnMethods.Models;
+using GetnMethods.Pages;
 using GetnMethods.Products;
 using GetnMethods.Products.ProductViewModels;
 using GetnMethods.Services;
@@ -145,7 +150,35 @@ public class MainWindowViewModel : ViewModelBase
             await SelectAllTextInteraction.Handle(Unit.Default);
         });
 
+        NavigationFactory = new NavigationFactory(this);
 
+    }
+    public NavigationFactory NavigationFactory { get; }
+
+    public AvaloniaList<MainAppSearchItem> SearchTerms { get; } = new AvaloniaList<MainAppSearchItem>();
+
+    public void BuildSearchTerms(MainPageViewModelBase pageItem)
+    {
+        if (pageItem is HomePageViewModel || pageItem is SettingsPageViewModel)
+            return;
+
+        void Add(PageBaseViewModel item)
+        {
+            if (item.SearchKeywords is null)
+                return;
+
+            string ctrlNamespace = "Avalonia.UI.Controls";
+
+            for (int i = 0; i < item.SearchKeywords.Length; i++)
+            {
+                SearchTerms.Add(new MainAppSearchItem
+                {
+                    Header = item.SearchKeywords[i],
+                    ViewModel = item,
+                    Namespace = ctrlNamespace
+                });
+            }
+        }
     }
 
     async void Clear()
@@ -191,8 +224,6 @@ public class MainWindowViewModel : ViewModelBase
         public string DialogSubTitle { get; set; }
 
     }
-
-
 
     private async Task DownloadData()
     {
@@ -328,4 +359,73 @@ public class MainWindowViewModel : ViewModelBase
         {
         }
     }
+}
+public class MainAppSearchItem
+{
+    public MainAppSearchItem() { }
+
+    public MainAppSearchItem(string pageHeader,Type pageType)
+    {
+        Header = pageHeader;
+        PageType = pageType;
+    }
+
+    public string Header { get; set; }
+
+    public PageBaseViewModel ViewModel { get; set; }
+
+    public string Namespace { get; set; }
+
+    public Type PageType { get; set; }
+}
+
+public class NavigationFactory : INavigationPageFactory
+{
+    public NavigationFactory(MainWindowViewModel owner)
+    {
+        Owner = owner;
+    }
+
+    public MainWindowViewModel Owner { get; }
+
+
+    public Control GetPage(Type srcType)
+    {
+        return null;
+    }
+
+    public Control GetPageFromObject(object target)
+    {
+        if (target is HomePageViewModel)
+        {
+            return new HomePage
+            {
+                DataContext = target,
+            };
+        }
+        else if (target is SettingsPageViewModel)
+        {
+            return new SettingsPage
+            {
+                DataContext = target
+            };
+        }
+        else
+        {
+            return ResolvePage(target as PageBaseViewModel);
+        }
+    }
+
+    private Control ResolvePage(PageBaseViewModel pbvm)
+    {
+        if (pbvm is null)
+            return null;
+
+        Control page = null;
+        var key = pbvm.PageKey;
+        return page;
+    }
+
+
+
 }

@@ -1,3 +1,5 @@
+
+
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Controls;
@@ -5,7 +7,6 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
-using Avalonia.ReactiveUI;
 using Avalonia.Styling;
 using Avalonia.Threading;
 
@@ -19,41 +20,47 @@ using FluentAvalonia.UI.Windowing;
 using GetnMethods.Services;
 using GetnMethods.ViewModels;
 
-using ReactiveUI;
-
 using System;
 
 using System.Collections.Generic;
 using System.IO;
-using System.Reactive;
-using System.Reactive.Disposables;
 
 namespace GetnMethods;
 
-public partial class MainView : ReactiveUserControl<MainWindowViewModel>
+public partial class CoreView : UserControl
 {
-    public MainView()
+    public CoreView()
     {
         InitializeComponent();
-        this.WhenActivated(disposables =>
-        {
-            ViewModel?.SelectAllTextInteraction.RegisterHandler(async interaction =>
-            {
-                LogViewer.SelectAll();
-                interaction.SetOutput(Unit.Default);
-            }).DisposeWith(disposables);
-        });
 
+    //    SearchBox.KeyUp += (s,e) =>
+    //    {
+    //        if (e.Key == Key.Enter)
+    //        {
+    //            var acb = (s as AutoCompleteBox);
+    //            if (acb.SelectedItem != null)
+    //            {
+    //                var item = acb.SelectedItem as MainAppSearchItem;
+    //                NavigationService.Instance.NavigateFromContext(item.ViewModel,
+    //                    new EntranceNavigationTransitionInfo());
+    //            }
+    //            else
+    //            {
+    //                var items = (DataContext as MainViewViewModel).SearchTerms;
+    //                foreach (var item in items)
+    //                {
+    //                    if (string.Equals(item.Header,acb.Text,StringComparison.OrdinalIgnoreCase))
+    //                    {
+    //                        NavigationService.Instance.NavigateFromContext(item.ViewModel,
+    //                            new EntranceNavigationTransitionInfo());
+    //                        break;
+    //                    }
+    //                }
+    //            }
+    //            e.Handled = true;
+    //        }
+    //    };
     }
-
-    private void Control_OnSizeChanged(object sender,SizeChangedEventArgs e)
-    {
-        if (e.HeightChanged)
-        {
-            ScrollOutputViewer.Height = e.NewSize.Height;
-        }
-    }
-
 
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
@@ -61,7 +68,7 @@ public partial class MainView : ReactiveUserControl<MainWindowViewModel>
 
         ClipboardService.Owner = TopLevel.GetTopLevel(this);
 
-        var vm = new MainWindowViewModel();
+        var vm = new MainViewViewModel();
         DataContext = vm;
 
         FrameView.NavigationPageFactory = vm.NavigationFactory;

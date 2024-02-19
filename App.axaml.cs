@@ -1,8 +1,11 @@
 
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
@@ -12,12 +15,7 @@ using FluentAvalonia.UI.Windowing;
 
 using GetnMethods.Products.ProductViewModels;
 using GetnMethods.ViewModels;
-
 using GetnMethods.Views;
-
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GetnMethods;
 public partial class App : Application
@@ -45,20 +43,28 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
+
+    /// <summary>
+    /// Shows the splash screen for the application.
+    /// </summary>
+    /// <param name="desktop"></param>
+    /// <returns>
+    /// Returns a new instance of the <see cref="Task"/> class which must be awaited.
+    /// </returns>
     private async Task ShowSplashScreenAsync(IClassicDesktopStyleApplicationLifetime desktop)
     {
         try
         {
-            throw new InvalidOperationException("This is a test exception");
-            throw new Exception("This is a test exception");
             var splashScreen = new ApplicationSplashScreen();
             await ShowSplashScreen(splashScreen,desktop);
         }
         catch (Exception ex)
         {
-            
+            Dispatcher.UIThread.Post(() =>
+            {
                 var warningDialog = new WarningDialogProduct("Failed","Application start up has failed",ex.Message);
                 warningDialog.ShowDialog();
+            });
         }
     }
 
@@ -72,30 +78,45 @@ public partial class App : Application
     /// </returns>
     private async Task ShowSplashScreen(ApplicationSplashScreen splashScreen,IClassicDesktopStyleApplicationLifetime desktop)
     {
-        var splashModel = CreateSplashWindow(splashScreen);
-
-        if (splashScreen.SplashScreenContent is Control content)
-            splashModel.Content = content;
-        
-        if (splashScreen.AppIcon is Bitmap appIconBitmap)
-            splashModel.Icon = new WindowIcon(appIconBitmap);
-        
-        splashModel.Show();
-
-        var minimumShowTimeTask = Task.Delay(splashScreen.MinimumShowTime);
-        var runTasks = splashScreen.RunTasks(CancellationToken.None);
-
-        await Task.WhenAll(minimumShowTimeTask,runTasks);
-
-
-        var mainWindow = new MainWindow
+        try
         {
-            DataContext = new MainWindowViewModel()
-        };
+            var splashModel = CreateSplashWindow(splashScreen);
 
-        desktop.MainWindow = mainWindow;
-        desktop.MainWindow.Show();
-        splashModel.Close();
+            if (splashScreen.SplashScreenContent is Control content)
+                splashModel.Content = content;
+
+            if (splashScreen.AppIcon is Bitmap appIconBitmap)
+                splashModel.Icon = new WindowIcon(appIconBitmap);
+
+            splashModel.Show();
+
+            var minimumShowTimeTask = Task.Delay(splashScreen.MinimumShowTime);
+            var runTasks = splashScreen.RunTasks(CancellationToken.None);
+
+            await Task.WhenAll(minimumShowTimeTask,runTasks);
+
+
+            var mainWindow = new MainWindow
+            {
+                DataContext = new MainWindowViewModel()
+            };
+
+            desktop.MainWindow = mainWindow;
+            desktop.MainWindow.Show();
+            splashModel.Close();
+        }
+        catch (Exception ex)
+        {
+            Dispatcher.UIThread.Post(async () =>
+            {
+                var warningDialog = new WarningDialogProduct("Failed","Application start-up has failed",ex.Message);
+                warningDialog.ShowDialog();
+
+                //if(warningDialog is null)
+                //    desktop.Shutdown();
+
+            });
+        }
 
     }
 
@@ -116,7 +137,7 @@ public partial class App : Application
             SystemDecorations = SystemDecorations.None,
             ExtendClientAreaToDecorationsHint = true,
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
-            ShowInTaskbar = false 
+            ShowInTaskbar = false
         };
 
         if (splashScreen.SplashScreenContent is Control content)
@@ -149,11 +170,16 @@ public class ApplicationSplashScreen : IApplicationSplashScreen
 
     public IImage? AppIcon { get; }
     public object SplashScreenContent => new MainAppSplashContent();
-    public int MinimumShowTime => 3000;
+    public Action InitApp { get; set; }
+    //public int MinimumShowTime => 3000;
+    public int MinimumShowTime => 0;
 
-    public async Task RunTasks(CancellationToken cancellationToken)
+    public Task RunTasks(CancellationToken cancellationToken)
     {
-        await Task.Delay(2000,cancellationToken);
+        if (InitApp == null)
+            return Task.CompletedTask;
+
+        return Task.Run(InitApp,cancellationToken);
     }
 
 }

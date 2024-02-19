@@ -43,7 +43,7 @@ public class AnalyzerService : IAnalyzerService
             text: sourceCode,
             options: parseOptions ?? CSharpParseOptions.Default,
             path: filePath,
-            encoding: encoding ?? Encoding.UTF8, // Default to UTF-8 if no encoding is specified.
+            encoding: encoding ?? Encoding.UTF8,
             cancellationToken: cancellationToken);
 
         return syntaxTree;

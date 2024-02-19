@@ -1,5 +1,8 @@
+using Avalonia;
 using Avalonia.ReactiveUI;
+using Avalonia.Threading;
 
+using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Windowing;
 
 using GetnMethods.Products;
@@ -9,9 +12,8 @@ using GetnMethods.Products.ProductViewModels;
 using GetnMethods.ViewModels;
 
 using ReactiveUI;
-
 using System;
-
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GetnMethods.Views;

@@ -1,0 +1,55 @@
+<UserControl
+	x:Class="GetnMethods.Pages.HomePage"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:conv="using:GetnMethods.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:GetnMethods.Controls"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	xmlns:views="using:GetnMethods"
+	xmlns:vm="using:GetnMethods.ViewModels"
+	d:DesignHeight="700"
+	d:DesignWidth="1200"
+	x:CompileBindings="True"
+	x:DataType="vm:MainWindowViewModel"
+	mc:Ignorable="d">
+
+	<Grid ColumnDefinitions="0,*" RowDefinitions="Auto,Auto,*">
+		<Border
+			Grid.Row="1"
+			Grid.RowSpan="2"
+			Grid.Column="1"
+			VerticalAlignment="Stretch"
+			Background="{DynamicResource NormalBlackDark}"
+			BorderBrush="{DynamicResource NormalBlackDark}"
+			BorderThickness="0,0,0,0"
+			CornerRadius="0 0 0 0"
+			DockPanel.Dock="Bottom"
+			SizeChanged="Control_OnSizeChanged">
+			<ScrollViewer
+				Name="ScrollOutputViewer"
+				Height="400"
+				VerticalAlignment="Stretch"
+				HorizontalScrollBarVisibility="Auto">
+				<SelectableTextBlock
+					x:Name="LogViewer"
+					Padding="10"
+					Background="Transparent"
+					FontFamily="Cascadia Code"
+					FontWeight="Normal"
+					Foreground="{DynamicResource NormalGreenDark}"
+					Text="{Binding LogMessages}">
+					<!--<SelectableTextBlock.ContextFlyout>
+						<Flyout Placement="Top">
+							<StackPanel>
+								<MenuItem Command="{Binding SelectAllCommand}" Header="Select All" />
+								<MenuItem Command="{Binding ClearLogWindowCommand}" Header="Clear" />
+							</StackPanel>
+						</Flyout>
+					</SelectableTextBlock.ContextFlyout>-->
+				</SelectableTextBlock>
+			</ScrollViewer>
+		</Border>
+	</Grid>
+</UserControl>

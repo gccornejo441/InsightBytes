@@ -10,50 +10,51 @@
 	xmlns:views="clr-namespace:GetnMethods"
 	xmlns:vm="using:GetnMethods.ViewModels"
 	Title="GetnMethods"
-	d:DesignHeight="550"
-	d:DesignWidth="1000"
-	WindowState="Maximized"
+	d:DesignHeight="650"
+	d:DesignWidth="1200"
 	x:DataType="vm:MainWindowViewModel"
 	Background="Transparent"
 	ExtendClientAreaToDecorationsHint="True"
 	Icon="/Assets/report-repo.ico"
 	TransparencyLevelHint="AcrylicBlur"
+	WindowState="Maximized"
 	mc:Ignorable="d">
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel />
 	</Design.DataContext>
 
-
 	<Panel Background="{DynamicResource ThemeContentBackgroundColor}">
 		<dialogHost:DialogHost CloseOnClickAway="True" IsOpen="False">
+				<!--<views:CoreView
+					Grid.Row="1"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch" />-->
 			<Grid
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"
 				RowDefinitions="Auto, *">
-				<Grid
+				<views:MainView Grid.Row="1" />
+				<!--<Grid
 					Margin="7"
 					Grid.Row="1"
 					HorizontalAlignment="Stretch"
 					VerticalAlignment="Stretch"
 					ColumnDefinitions="50, *"
 					RowDefinitions="Auto, *, Auto">
-					<views:MainMenuBarView
-						Grid.Row="0"
-						Grid.Column="1"
-						Grid.ColumnSpan="2" />
 					<views:MainView
-						Grid.Row="1"
+						Grid.Row="0"
+						Grid.RowSpan="2"
 						Grid.Column="0"
 						Grid.ColumnSpan="2" />
 					<views:MainStatusBarView
-						Grid.Row="2"
+						Grid.Row="1"
 						Grid.Column="0"
 						Grid.ColumnSpan="2"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
 						IsVisible="True" />
-				</Grid>
+				</Grid>-->
 			</Grid>
 		</dialogHost:DialogHost>
 	</Panel>
