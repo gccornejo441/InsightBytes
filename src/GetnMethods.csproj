@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <UseWindowsForms>False</UseWindowsForms>
+    <UseWPF>False</UseWPF>
+    <StartupObject>GetnMethods.Program</StartupObject>
+    <ApplicationIcon>Assets\report-repo.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Title>GetNMethods</Title>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3</FileVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\**" />
+    <Compile Remove="Products\BaseDialogProduct.cs" />
+    <Compile Remove="Products\ProductControls\DownloadDialogControl.cs" />
+    <Compile Remove="ViewModels\MainWindowViewModel1.cs" />
+    <None Remove="Assets\Fonts\CascadiaCode.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodeItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodePL.ttf" />
+    <None Remove="Assets\Fonts\CascadiaCodePLItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMono.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoItalic.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoPL.ttf" />
+    <None Remove="Assets\Fonts\CascadiaMonoPLItalic.ttf" />
+    <Content Include="Assets\report-repo.ico" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.8" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.8" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.8" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.0.8" />
+    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+    <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.8" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.8" />
+    <PackageReference Include="DialogHost.Avalonia" Version="0.7.7" />
+    <PackageReference Include="FluentAvaloniaUI" Version="2.0.5" />
+	<PackageReference Include="Microsoft.Build.Locator" Version="1.7.1" />
+	<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+	<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.8.0" />
+	<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.8.0" />
+	<PackageReference Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Version="4.8.0" />
+	<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Compile Update="Products\ProductControls\BaseDialog.axaml.cs">
+	    <DependentUpon>BaseDialog.axaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Controls\MainAppSplashContent.axaml.cs">
+	    <DependentUpon>MainAppSplashContent.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+</Project>
