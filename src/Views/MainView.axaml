@@ -201,7 +201,6 @@
 			</ui:NavigationView.Content>
 		</ui:NavigationView>
 
-
 	</Grid>
 
 </UserControl>
