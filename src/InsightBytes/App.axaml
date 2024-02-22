@@ -1,0 +1,31 @@
+<Application
+	x:Class="InsightBytes.App"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="using:InsightBytes"
+	xmlns:sty="using:FluentAvalonia.Styling"
+	RequestedThemeVariant="Dark">
+	
+	<Application.DataTemplates>
+		<local:ViewLocator />
+	</Application.DataTemplates>
+
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+					<Color x:Key="BgColor">#ffffff</Color>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key="Dark">
+					<Color x:Key="BgColor">#000000</Color>
+				</ResourceDictionary>
+			</ResourceDictionary.ThemeDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+
+	<Application.Styles>
+		<sty:FluentAvaloniaTheme PreferSystemTheme="False" PreferUserAccentColor="True" />
+		<StyleInclude Source="/Styles/ProgressBar.axaml" />
+		<StyleInclude Source="/Styles/CustomTheme.axaml" />
+	</Application.Styles>
+</Application>

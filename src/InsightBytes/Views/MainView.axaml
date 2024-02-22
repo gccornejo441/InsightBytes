@@ -1,0 +1,72 @@
+<UserControl
+	x:Class="InsightBytes.MainView"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	xmlns:vm="using:InsightBytes.ViewModels"
+	xmlns:local="using:InsightBytes"
+	x:CompileBindings="True"
+	d:DesignHeight="720"
+	d:DesignWidth="1280"
+	mc:Ignorable="d">
+
+	<Design.DataContext>
+		<vm:HomeControlViewModel/>
+	</Design.DataContext>
+
+	
+	<Grid RowDefinitions="*, Auto" Background="{DynamicResource NormalBlackUpDark}">
+		<Grid Background="{DynamicResource NormalBlackUpDark}" RowDefinitions="30, *">
+			<Grid
+				Name="TitleBarHost"
+				Grid.Row="0"
+				Height="30"
+				Background="{DynamicResource NormalBlackUpDark}"
+				ColumnDefinitions="Auto,Auto,*,Auto">
+				<Image
+					Name="WindowIcon"
+					Width="18"
+					Height="18"
+					Margin="12,4"
+					DockPanel.Dock="Left"
+					IsHitTestVisible="False"
+					RenderOptions.BitmapInterpolationMode="HighQuality"
+					Source="/Assets/report-repo.ico">
+					<Image.IsVisible>
+						<OnPlatform Default="False">
+							<On Content="True" Options="Windows" />
+						</OnPlatform>
+					</Image.IsVisible>
+				</Image>
+
+				<TextBlock
+					Grid.Column="1"
+					VerticalAlignment="Center"
+					FontSize="12"
+					IsHitTestVisible="False"
+					Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}">
+					<TextBlock.IsVisible>
+						<OnPlatform Default="False">
+							<On Content="True" Options="Windows" />
+						</OnPlatform>
+					</TextBlock.IsVisible>
+				</TextBlock>
+			</Grid>
+
+			<ui:NavigationView
+				Name="NavView"
+				Background="{DynamicResource NormalBlackUpDark}"
+				Grid.Row="1"
+				Grid.RowSpan="2"
+				AlwaysShowHeader="False"
+				IsBackEnabled="{Binding #FrameView.CanGoBack}"
+				IsSettingsVisible="False"
+				PaneDisplayMode="Left">
+				<ui:Frame Name="FrameView" />
+			</ui:NavigationView>
+		</Grid>
+		
+	</Grid>
+</UserControl>

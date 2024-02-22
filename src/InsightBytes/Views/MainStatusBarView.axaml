@@ -1,0 +1,59 @@
+<UserControl
+	x:Class="InsightBytes.MainStatusBarView"
+	xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ui="using:FluentAvalonia.UI.Controls"
+	xmlns:vm="using:InsightBytes.ViewModels"
+	d:DesignHeight="50"
+	d:DesignWidth="1000"
+	x:CompileBindings="True"
+	x:DataType="vm:HomeControlViewModel"
+	mc:Ignorable="d">
+
+	<Design.DataContext>
+		<vm:HomeControlViewModel />
+	</Design.DataContext>
+
+
+	<Grid
+		Name="StatusBar"
+		MinHeight="22"
+		HorizontalAlignment="Stretch"
+		VerticalAlignment="Bottom"
+		Background="{DynamicResource NormalBlackUpDark}"
+		IsVisible="{Binding ShowMenuAndStatusBar}">
+		<StackPanel Orientation="Horizontal">
+			<Button
+				Width="25"
+				Height="25"
+				Margin="5,0"
+				VerticalAlignment="Center"
+				Background="Transparent"
+				BorderBrush="Transparent">
+				<ui:SymbolIcon
+					Width="50"
+					Height="100"
+					Foreground="{DynamicResource NormalYellowDark}"
+					Symbol="FolderFilled" />
+			</Button>
+			<TextBlock
+				Name="LoadStatus"
+				Margin="5,0"
+				VerticalAlignment="Center"
+				Text="{Binding SelectedFileName}" />
+			<ProgressBar
+				Name="LoadProgressBar"
+				Width="250"
+				Height="3"
+				Margin="5,0"
+				VerticalAlignment="Center"
+				Foreground="{DynamicResource NormalGreenDark}"
+				IsVisible="True"
+				Maximum="{Binding StatusBarProgressMaximum}"
+				Value="{Binding StatusBarProgressValue}" />
+		</StackPanel>
+	</Grid>
+
+</UserControl>
