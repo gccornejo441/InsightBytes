@@ -1,5 +1,7 @@
 ﻿using System.Windows.Input;
 
+using FluentAvalonia.UI.Controls;
+
 using InsightBytes.Services.Units;
 
 using ReactiveUI;
@@ -36,7 +38,7 @@ public class MainViewModelBase : ViewModelBase
 {
     public string NavHeader { get; set; }
 
-    public string IconKey { get; set; }
+    public Symbol IconKey { get; set; }
 
     public bool ShowsInFooter { get; set; }
 }

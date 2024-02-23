@@ -1,5 +1,6 @@
 ﻿using InsightBytes.Services.Models;
 using InsightBytes.Services.Utils;
+using InsightBytes.Utilities.ExceptionLibrary;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -17,36 +18,12 @@ namespace InsightBytes.Services.ServiceUnits;
 public class AnalyzerService : IAnalyzerService
 {
     ParserHelpers _parserHelpers;
+    CancellationToken _cancellationToken;
 
-    public AnalyzerService(ParserHelpers parserHelpers) 
+    public AnalyzerService(ParserHelpers parserHelpers, CancellationToken cancellationToken = default) 
     { 
         _parserHelpers = parserHelpers; 
-    }
-
-    /// <summary>
-    /// Create a syntax tree from the source code.
-    /// </summary>
-    /// <param name="sourceCode"></param>
-    /// <param name="parseOptions"></param>
-    /// <param name="filePath"></param>
-    /// <param name="encoding"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    static SyntaxTree CreateSyntaxTree(
-        string sourceCode,
-        CSharpParseOptions parseOptions = null,
-        string filePath = "",
-        Encoding encoding = null,
-        CancellationToken cancellationToken = default)
-    {
-        SyntaxTree syntaxTree = CSharpSyntaxTree.ParseText(
-            text: sourceCode,
-            options: parseOptions ?? CSharpParseOptions.Default,
-            path: filePath,
-            encoding: encoding ?? Encoding.UTF8, // Default to UTF-8 if no encoding is specified.
-            cancellationToken: cancellationToken);
-
-        return syntaxTree;
+        _cancellationToken = cancellationToken;
     }
 
 
@@ -57,27 +34,68 @@ public class AnalyzerService : IAnalyzerService
     /// <returns>
     /// Returns a list of <see cref="MethodSignature"/> objects.
     /// </returns>
-    public async Task<List<MethodSignature>> GetMethodSignatures(string filePath)
+    public async Task<List<MethodSignature>> GetMethodSignatures(string filePath, CancellationToken cancellationToken)
     {
-        var root = await _parserHelpers.GetNodeFromFileAsync(filePath);
-        var methodSignatures = root.DescendantNodes()
-            .OfType<MethodDeclarationSyntax>()
-            .Select(
-                method =>
-                {
-                    var location = method.GetLocation();
-                    var lineSpan = location.GetLineSpan();
-                    var lineNumber = lineSpan.StartLinePosition.Line + 1;
-                    var timeStamp = DateTime.Now.ToString("HH:mm:ss");
-                    var signature = $"{method.Modifiers} {method.ReturnType} {method.Identifier.ValueText}{method.ParameterList}";
+        try
+        {
+            if (File.Exists(filePath))
+                throw new FileNotFoundException("File not found",filePath);
 
-                    return new MethodSignature(lineNumber, timeStamp, signature);
-                })
-            .ToList();
+            var root = await _parserHelpers.GetNodeFromFileAsync(filePath,cancellationToken);
 
-        return methodSignatures;
+            var methodSignatures = root.DescendantNodes()
+                .OfType<MethodDeclarationSyntax>()
+                .Select(
+                    method =>
+                    {
+                        var location = method.GetLocation();
+                        var lineSpan = location.GetLineSpan();
+                        var lineNumber = lineSpan.StartLinePosition.Line + 1;
+                        var timeStamp = DateTime.Now.ToString("HH:mm:ss");
+                        var signature = $"{method.Modifiers} {method.ReturnType} {method.Identifier.ValueText}{method.ParameterList}";
+
+                        return new MethodSignature(lineNumber,timeStamp,signature);
+                    })
+                .ToList();
+
+            return methodSignatures;
+        }
+        catch (IOException ex)
+        {
+            throw new FileIOException(ex.Message,ex);
+        }
     }
 
-    public Task<Document> GetProjectByDocumentNameAsync(Project project, string documentName)
-    { throw new NotImplementedException(); }
+    public async Task<List<MethodSignature>> GetMethodSignatures(string filePath)
+    {
+        try
+        {
+            if (File.Exists(filePath))
+                throw new FileNotFoundException("File not found",filePath);
+
+            var fileContent = await File.ReadAllTextAsync(filePath);
+
+            var syntaxNode = await CSharpSyntaxTree.ParseText(fileContent).GetRootAsync();
+            var methodSignatures = syntaxNode.DescendantNodes()
+                .OfType<MethodDeclarationSyntax>()
+                .Select(
+                    method =>
+                    {
+                        var location = method.GetLocation();
+                        var lineSpan = location.GetLineSpan();
+                        var lineNumber = lineSpan.StartLinePosition.Line + 1;
+                        var timeStamp = DateTime.Now.ToString("HH:mm:ss");
+                        var signature = $"{method.Modifiers} {method.ReturnType} {method.Identifier.ValueText}{method.ParameterList}";
+
+                        return new MethodSignature(lineNumber,timeStamp,signature);
+                    })
+                .ToList();
+
+            return methodSignatures;
+        }
+        catch (IOException ex)
+        {
+            throw new FileIOException(ex.Message,ex);
+        }
+    }
 }

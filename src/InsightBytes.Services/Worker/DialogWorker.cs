@@ -1,19 +1,20 @@
-﻿using InsightBytes.Services.Units;
+﻿using InsightBytes.Services.Models;
+using InsightBytes.Services.Units;
 using InsightBytes.Services.UnitViewModels;
 
 namespace InsightBytes.Services.Factory;
 public class DialogWorker
 {
-    public IDialogUnit CreateDialog(string dialogType)
+    public IDialogUnit CreateDialog(UiTitlesModel uiTitles)
     {
-        switch (dialogType)
+        switch (uiTitles.DialogType)
         {
             case "Download":
-                return new DownloadDialogViewModel();
+                return new DownloadDialogViewModel(uiTitles.WindowTitle,uiTitles.DialogTitle,uiTitles.DialogSubTitle);
             case "Warning":
-                return new WarningDialogProduct();
+                return new WarningDialogProduct(uiTitles.WindowTitle, uiTitles.DialogTitle, uiTitles.DialogSubTitle);
             default:
-                throw new ArgumentException("Unknown dialog type",nameof(dialogType));
+                throw new ArgumentException("Unknown dialog type",nameof(uiTitles.DialogType));
         }
     }
 }

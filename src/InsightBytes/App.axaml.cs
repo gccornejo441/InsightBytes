@@ -51,9 +51,15 @@ public partial class App : Application
         }
         catch (Exception ex)
         {
-
             var warningDialog = new WarningDialogProduct("Failed","Application start up has failed",ex.Message);
-            warningDialog.ShowDialog();
+
+            warningDialog.Closed += (sender,args) =>
+            {
+                Environment.Exit(0);
+            };
+
+            warningDialog.Show();
+
         }
     }
 

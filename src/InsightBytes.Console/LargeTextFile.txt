@@ -1,0 +1,1748 @@
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIReportHeaderData
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetADDRInspectionTypeString
+	Table accessed: reference.InspectionType
+#####################################################################
+
+Method: GetMCIQuarterlyReportData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIQuarterlyReportData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIQuarterlyReportData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIQuarterlyReportData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIQuarterlyReportEnclosureData
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIJCNSheetBySequence
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMCIJCNSheetBySequenceAndInspector
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: DeleteInspectionRecords
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: DeleteWorkOrderRecords
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: GetPartGenerationInformation
+	Table accessed: system.SFCSPartGen
+#####################################################################
+
+Method: GetInductionData
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetInductionJONEntities
+	Table accessed: production.InductionJON
+#####################################################################
+
+Method: GetInductionRepairCodeEntities
+	Table accessed: production.InductionRepairCode
+#####################################################################
+
+Method: GetTrades
+	Table accessed: reference.Trade
+#####################################################################
+
+Method: GetFundingSourcesDTO
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: GetTradesDTO
+	Table accessed: reference.Trade
+#####################################################################
+
+Method: GetLocations
+	Table accessed: reference.EventLocation
+#####################################################################
+
+Method: GetEventLocationsDTO
+	Table accessed: reference.EventLocation
+#####################################################################
+
+Method: GetAllSubZones
+	Table accessed: reference.SubZone
+#####################################################################
+
+Method: GetTMS
+	Table accessed: reference.TMS
+#####################################################################
+
+Method: GetTMSDTO
+	Table accessed: reference.TMS
+#####################################################################
+
+Method: GetReWork
+	Table accessed: reference.ReWork
+#####################################################################
+
+Method: GetReWorkDTO
+	Table accessed: reference.ReWork
+#####################################################################
+
+Method: GetDispositionsDTO
+	Table accessed: reference.Disposition
+#####################################################################
+
+Method: GetDispositionList
+	Table accessed: reference.Disposition
+#####################################################################
+
+Method: GetActions
+	Table accessed: reference.ActionTaken
+#####################################################################
+
+Method: GetLevels
+	Table accessed: reference.Level
+#####################################################################
+
+Method: GetPhases
+	Table accessed: reference.Phase
+#####################################################################
+
+Method: GetPublicationsDTO
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: GetReferences
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: GetJONs
+	Table accessed: reference.JON
+#####################################################################
+
+Method: GetJONsByInductionDTO
+	Table accessed: reference.JON
+#####################################################################
+
+Method: GetMalCodes
+	Table accessed: reference.MalCode
+#####################################################################
+
+Method: GetMalCodeList
+	Table accessed: reference.MalCode
+#####################################################################
+
+Method: GetMalCodeAssignmentList
+	Table accessed: reference.MalCodeAssignment
+#####################################################################
+
+Method: GetCorrTypes
+	Table accessed: reference.CorrType
+#####################################################################
+
+Method: GetCorrExtents
+	Table accessed: reference.CorrExtent
+#####################################################################
+
+Method: GetConditions
+	Table accessed: reference.Condition
+#####################################################################
+
+Method: GetRepairs
+	Table accessed: reference.RepairCode
+#####################################################################
+
+Method: GetRepairCodesDTO
+	Table accessed: reference.RepairCode
+#####################################################################
+
+Method: GetRepairCodesByInductionDTO
+	Table accessed: reference.RepairCode
+#####################################################################
+
+Method: GetWBSPhases
+	Table accessed: reference.WBSPhase
+#####################################################################
+
+Method: GetInspectionTypes
+	Table accessed: reference.InspectionType
+#####################################################################
+
+Method: GetInspectionTypesDTO
+	Table accessed: reference.InspectionType
+#####################################################################
+
+Method: GetZones
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetWorkCenterEntities
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetWorkCenterEntities
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: GetSpecRequirementsDTO
+	Table accessed: reference.SpecRequirement
+#####################################################################
+
+Method: CheckWUCBaseline
+	Table accessed: reference.WUC
+#####################################################################
+
+Method: CheckWUCBaseline
+	Table accessed: reference.WUCBaseline
+#####################################################################
+
+Method: GetWUCBaseline
+	Table accessed: reference.WUCBaseline
+#####################################################################
+
+Method: GetWUCList
+	Table accessed: reference.WUC
+#####################################################################
+
+Method: GetWUCReferencesDTO
+	Table accessed: reference.WUCReference
+#####################################################################
+
+Method: GetWUCsDTO
+	Table accessed: reference.WUC
+#####################################################################
+
+Method: GetMasters
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetMasters
+	Table accessed: reference.EventLocationMasterInspection
+#####################################################################
+
+Method: GetMasters
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMasterInformation
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetApprovalWorkOrderByID
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderByID
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderByID
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderSummary
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderSummary
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderSummary
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderSummary
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderSummaryNew
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderSummaryNew
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderSummaryNew
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderSummaryNew
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderSummaryNew
+	Table accessed: system.OutboundInterfaceRequest
+#####################################################################
+
+Method: GetApprovalWorkOrderList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetApprovalWorkOrderListNew
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetPackagingWorkOrderListNew
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetNBNCApprovalInspections
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetAllInspectionsList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetAllInspectionDataByIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetAllMasterInspections
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByChildDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByDescription
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetInspectionByDescription
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByChildStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetMasterInspectionByStartWith
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionByStartWith
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInductionByDescription
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetInductionByStartWith
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetWorkOrdersByID
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: GetInspectionInfoByID
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMasterInspectionInfoByID
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetAdditionalFields
+	Table accessed: system.AdditionalFieldDefinition
+#####################################################################
+
+Method: GetNouns
+	Table accessed: system.Noun
+#####################################################################
+
+Method: GetVerbs
+	Table accessed: system.Verb
+#####################################################################
+
+Method: GetAdjectives
+	Table accessed: system.Adjective
+#####################################################################
+
+Method: UpdateInspections
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInspections
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInspections
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateMasterInspections
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: GetActionTakenList
+	Table accessed: reference.ActionTaken
+#####################################################################
+
+Method: GetPublicationEntities
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: UpdateActionTakenList
+	Table accessed: reference.ActionTaken
+#####################################################################
+
+Method: UpdateReferenceList
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: GetAdjectiveList
+	Table accessed: system.Adjective
+#####################################################################
+
+Method: GetInspectionTypeList
+	Table accessed: reference.InspectionType
+#####################################################################
+
+Method: UpdateAdjectiveList
+	Table accessed: system.Adjective
+#####################################################################
+
+Method: GetSubZoneList
+	Table accessed: reference.SubZone
+#####################################################################
+
+Method: UpdateSubZoneList
+	Table accessed: reference.SubZone
+#####################################################################
+
+Method: GetConditionList
+	Table accessed: reference.Condition
+#####################################################################
+
+Method: UpdateConditionList
+	Table accessed: reference.Condition
+#####################################################################
+
+Method: GetNounList
+	Table accessed: system.Noun
+#####################################################################
+
+Method: UpdateNounList
+	Table accessed: system.Noun
+#####################################################################
+
+Method: GetVerbList
+	Table accessed: system.Verb
+#####################################################################
+
+Method: UpdateVerbList
+	Table accessed: system.Verb
+#####################################################################
+
+Method: ProbeBaselineInformation
+	Table accessed: reference.WUCBaseline
+#####################################################################
+
+Method: ProbeBaselineInformation
+	Table accessed: reference.WUCBaseline
+#####################################################################
+
+Method: GetPackagingFormColumnLayout
+	Table accessed: system.PackagingFormColumnLayout
+#####################################################################
+
+Method: GetApprovalLayoutSettings
+	Table accessed: system.ApprovalFormColumnLayout
+#####################################################################
+
+Method: GetCorrTypeList
+	Table accessed: reference.CorrType
+#####################################################################
+
+Method: UpdateCorrTypeList
+	Table accessed: reference.CorrType
+#####################################################################
+
+Method: GetCorrExtentList
+	Table accessed: reference.CorrExtent
+#####################################################################
+
+Method: UpdateCorrExtentList
+	Table accessed: reference.CorrExtent
+#####################################################################
+
+Method: GetFundingCodeList
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: GetFundingCodesDTO
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: GetFundingSourceEntities
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: GetFundingCodeEntities
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: UpdateFundingCodeList
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: UpdateFundingSourceList
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: GetMediumList
+	Table accessed: reference.Media
+#####################################################################
+
+Method: UpdateMediumList
+	Table accessed: reference.Media
+#####################################################################
+
+Method: GetUnitList
+	Table accessed: reference.Unit
+#####################################################################
+
+Method: UpdateUnitList
+	Table accessed: reference.Unit
+#####################################################################
+
+Method: GetPhaseList
+	Table accessed: reference.Phase
+#####################################################################
+
+Method: UpdatePhaseList
+	Table accessed: reference.Phase
+#####################################################################
+
+Method: GetZoneList
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: UpdateZoneList
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetLevelList
+	Table accessed: reference.Level
+#####################################################################
+
+Method: UpdateLevelList
+	Table accessed: reference.Level
+#####################################################################
+
+Method: GetReWorkList
+	Table accessed: reference.ReWork
+#####################################################################
+
+Method: UpdateReWorkList
+	Table accessed: reference.ReWork
+#####################################################################
+
+Method: GetTradeList
+	Table accessed: reference.Trade
+#####################################################################
+
+Method: UpdateTradeList
+	Table accessed: reference.Trade
+#####################################################################
+
+Method: UpdateApprovalColumnList
+	Table accessed: system.ApprovalFormColumnLayout
+#####################################################################
+
+Method: GetWBSPhaseList
+	Table accessed: reference.WBSPhase
+#####################################################################
+
+Method: UpdateWBSPhaseList
+	Table accessed: reference.WBSPhase
+#####################################################################
+
+Method: GetDiagramList
+	Table accessed: reference.Diagram
+#####################################################################
+
+Method: GetDiagramFile
+	Table accessed: reference.Diagram
+#####################################################################
+
+Method: GetDiagramFileByZone
+	Table accessed: reference.Diagram
+#####################################################################
+
+Method: GetDiagramFileByZone
+	Table accessed: reference.ZoneDiagram
+#####################################################################
+
+Method: GetDiagramFileByZone
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetInspectionComment
+	Table accessed: production.InspectionStatusInformation
+#####################################################################
+
+Method: GetInspectionComment
+	Table accessed: production.InspectionStatusInformation
+#####################################################################
+
+Method: GetUILayoutConfigurationList
+	Table accessed: system.UILayoutConfiguration
+#####################################################################
+
+Method: GetUILayoutConfigurationEntities
+	Table accessed: system.UILayoutConfiguration
+#####################################################################
+
+Method: UpdateInspectionMaterialList
+	Table accessed: production.InspectionMaterial
+#####################################################################
+
+Method: UpdateMasterInspectionMaterialList
+	Table accessed: reference.MasterInspectionMaterial
+#####################################################################
+
+Method: UpdateDiagramList
+	Table accessed: reference.Diagram
+#####################################################################
+
+Method: GetSpecDocumentList
+	Table accessed: reference.SpecDocument
+#####################################################################
+
+Method: GetSpecDocumentsDTO
+	Table accessed: reference.SpecDocument
+#####################################################################
+
+Method: UpdateSpecDocumentList
+	Table accessed: reference.SpecDocument
+#####################################################################
+
+Method: GetWorkCenterList
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: UpdateWorkCenterList
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: GetEventLocationList
+	Table accessed: reference.EventLocation
+#####################################################################
+
+Method: UpdateEventLocationList
+	Table accessed: reference.EventLocation
+#####################################################################
+
+Method: GetTMSEntities
+	Table accessed: reference.TMS
+#####################################################################
+
+Method: GetTMSEntities
+	Table accessed: reference.TMS
+#####################################################################
+
+Method: UpdateTMList
+	Table accessed: reference.TMS
+#####################################################################
+
+Method: GetInductionList
+	Table accessed: production.Induction
+#####################################################################
+
+Method: GetInduction
+	Table accessed: production.Induction
+#####################################################################
+
+Method: UpdateInductions
+	Table accessed: production.Induction
+#####################################################################
+
+Method: DeleteInduction
+	Table accessed: production.Induction
+#####################################################################
+
+Method: DeleteInduction
+	Table accessed: production.Induction
+#####################################################################
+
+Method: DeleteInduction
+	Table accessed: production.Induction
+#####################################################################
+
+Method: UpdateInductionFinalSell
+	Table accessed: reference.Disposition
+#####################################################################
+
+Method: UpdateInductionFinalSell
+	Table accessed: reference.JON
+#####################################################################
+
+Method: UpdateInductionFinalSell
+	Table accessed: reference.RepairCode
+#####################################################################
+
+Method: UpdateInductionFinalSell
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInductionFinalSell
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateMasterAttachments
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: UpdateMasterAttachments
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: UpdateMasterAttachments
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: UpdateMasterAttachments
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: UpdateMasterAttachments
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: UpdateAttachments
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: UpdateAttachments
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: UpdateAttachments
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: UpdateAttachments
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: UpdateAttachments
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: UpdateInspectionComments
+	Table accessed: production.InspectionStatusInformation
+#####################################################################
+
+Method: UpdateWorkOrderStatus
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: UpdateWorkOrderStatus
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: UpdateInspectionProperty
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInspectionProperty
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInspectionProperty
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetAttachmentFileByInspection
+	Table accessed: production.InspectionAttachment
+#####################################################################
+
+Method: GetMasterAttachmentFileByInspection
+	Table accessed: reference.MasterInspectionAttachment
+#####################################################################
+
+Method: GetCrossReferenceInformation
+	Table accessed: system.PartNumCrossReference
+#####################################################################
+
+Method: UpdateInspectionPackageStatus
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateInspectionWorkOrder
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetExportBatchMaterialInfo
+	Table accessed: production.InspectionMaterial
+#####################################################################
+
+Method: GetWBSPhasesDTO
+	Table accessed: reference.WBSPhase
+#####################################################################
+
+Method: GetConditionsDTO
+	Table accessed: reference.Condition
+#####################################################################
+
+Method: GetCorrosionTypesDTO
+	Table accessed: reference.CorrType
+#####################################################################
+
+Method: GetCorrosionExtentsDTO
+	Table accessed: reference.CorrExtent
+#####################################################################
+
+Method: GetMalCodesDTO
+	Table accessed: reference.MalCode
+#####################################################################
+
+Method: GetLevelsDTO
+	Table accessed: reference.Level
+#####################################################################
+
+Method: GetZonesDTO
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetZoneEntities
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetZoneEntities
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetZoneSubZones
+	Table accessed: reference.ZoneSubZone
+#####################################################################
+
+Method: GetActionsTakenDTO
+	Table accessed: reference.ActionTaken
+#####################################################################
+
+Method: GetPhasesDTO
+	Table accessed: reference.Phase
+#####################################################################
+
+Method: GetMaterialUsageStateList
+	Table accessed: reference.MaterialUsageState
+#####################################################################
+
+Method: GetJONList
+	Table accessed: reference.JON
+#####################################################################
+
+Method: GetRepairCodeList
+	Table accessed: reference.RepairCode
+#####################################################################
+
+Method: InductionHasAttachedInspections
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: JONIsAttachedToInspection
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: InductionAndJONIsAttachedToInspection
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: RepairCodeIsAttachedToInspection
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: InductionAndRepairCodeIsAttachedToInspection
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetMasterInspectionsForResequence
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: ResequenceMasterInspections
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: ResequenceMasterInspections
+	Table accessed: reference.MasterInspection
+#####################################################################
+
+Method: ResequenceOPNValues
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: ResequenceOPNValues
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetZoneOnlyList
+	Table accessed: reference.Zone
+#####################################################################
+
+Method: GetTradeOnlyList
+	Table accessed: reference.Trade
+#####################################################################
+
+Method: GetSubZoneOnlyList
+	Table accessed: reference.SubZone
+#####################################################################
+
+Method: GetSubZonesDTO
+	Table accessed: reference.SubZone
+#####################################################################
+
+Method: TransferMasterAttachmentsToInspection
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetFundingCodeUsage
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: GetFundingSourceUsage
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: GetWorkCenterUsage
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: UpdateFundingCodeActiveFlag
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: UpdateFundingCodeActiveFlag
+	Table accessed: reference.FundingCode
+#####################################################################
+
+Method: UpdateFundingSourceActiveFlag
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: UpdateFundingSourceActiveFlag
+	Table accessed: reference.FundingSource
+#####################################################################
+
+Method: UpdatePublicationActiveFlag
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: UpdatePublicationActiveFlag
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: UpdatePublicationTradesAndActiveFlag
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: UpdatePublicationTradesAndActiveFlag
+	Table accessed: reference.Reference
+#####################################################################
+
+Method: UpdateWorkCenterActiveFlag
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: UpdateWorkCenterActiveFlag
+	Table accessed: reference.WorkCenter
+#####################################################################
+
+Method: _GetComboBoxColumnLayoutList
+	Table accessed: system.ComboBoxColumnLayout
+#####################################################################
+
+Method: GetComboBoxColumnLayoutEntities
+	Table accessed: system.ComboBoxColumnLayout
+#####################################################################
+
+Method: GetDCCValues
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: VerifyWorkOrderExistsWithinADCS
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: FetchWorkOrderIdWithMROWO
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: GetInspectionsByIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionsByIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetInspectionsByIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetWorkOrdersByInspectionIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetWorkOrdersByInspectionIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetWorkOrdersByInspectionIDList
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: GetWorkOrdersByInspectionIDList
+	Table accessed: production.WorkOrder
+#####################################################################
+
+Method: UpdateInspectionsForManualSync
+	Table accessed: production.Inspection
+#####################################################################
+
+Method: UpdateWorkOrdersForManualSync
+	Table accessed: production.WorkOrder
+#####################################################################
+

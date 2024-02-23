@@ -13,13 +13,13 @@ public class ParserHelpers
     /// <returns>
     /// Root node
     /// </returns>
-    public async Task<SyntaxNode> GetNodeFromFileAsync(string filePath)
+    public async Task<SyntaxNode> GetNodeFromFileAsync(string filePath, CancellationToken cancellationToken)
     {
         try
         {
             if (File.Exists(filePath))
             {
-                var fileContent = await File.ReadAllTextAsync(filePath);
+                var fileContent = await File.ReadAllTextAsync(filePath, cancellationToken);
                 var syntaxNode = await CSharpSyntaxTree.ParseText(fileContent).GetRootAsync();
                 return syntaxNode;
             }

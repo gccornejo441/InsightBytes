@@ -101,13 +101,6 @@ public class HomeControlViewModel : MainViewModelBase
         set => this.RaiseAndSetIfChanged(ref _downloadMessage,value);
     }
 
-    private string _dialogCalled;
-    public string DialogCalled
-    {
-        get => _dialogCalled;
-        set => this.RaiseAndSetIfChanged(ref _dialogCalled,value);
-    }
-
     public ICommand RunScriptCommand { get; }
     public ICommand GetFileCommand { get; }
     public ICommand ClearLogWindowCommand { get; }
@@ -147,10 +140,8 @@ public class HomeControlViewModel : MainViewModelBase
 
     async void Clear()
     {
-        DialogCalled = "Warning";
-        IDialogUnit? warningDialog = dialogWorker.CreateDialog("Warning");
-        var result = await ShowNotificationDialog.Handle(warningDialog);
-
+        uiTitles = new UiTitlesModel("Warning","Warning","Warning!","No data in log to download.");
+        var result = await ShowDialog(uiTitles);
 
         if (!string.IsNullOrEmpty(LogMessages))
         {
@@ -180,32 +171,16 @@ public class HomeControlViewModel : MainViewModelBase
         }
     }
 
-    public class UiTitlesModel
-    {
-        public string DialogType { get; set; }
-        public string WindowTitle { get; set; }
-        public string DialogTitle { get; set; }
-        public string DialogSubTitle { get; set; }
-
-    }
+    public UiTitlesModel uiTitles { get; set; }
 
     private async Task DownloadData()
     {
-        DialogCalled = "Download";
-
         try
         {
             if (_logBuilder.Length == 0)
             {
-                UiTitlesModel uiTitlesModel = new UiTitlesModel
-                {
-                    DialogType = "Warning",
-                    WindowTitle = "Warning",
-                    DialogTitle = "Warning!",
-                    DialogSubTitle = "No data in log to download."
-                };
-
-                await ShowDialog(uiTitlesModel);
+                uiTitles = new UiTitlesModel("Warning","Warning","Warning!","No data in log to download.");
+                await ShowDialog(uiTitles);
                 return;
             }
 
@@ -216,26 +191,25 @@ public class HomeControlViewModel : MainViewModelBase
             await File.WriteAllTextAsync(filePath,_logBuilder.ToString());
 
             NotificationMessage = $"Log data successfully saved to: {filePath}";
-            IDialogUnit? downloadDialog = dialogWorker.CreateDialog("Download");
-            await ShowNotificationDialog.Handle(downloadDialog);
+            
+            uiTitles = new UiTitlesModel("Download","Download","Downloading!",NotificationMessage);
+            await ShowDialog(uiTitles);
         }
         catch (Exception ex)
         {
             NotificationMessage = $"Exception occurred while saving log data: {ex.Message}";
-            IDialogUnit? warningDialog = dialogWorker.CreateDialog("Warning");
-            await ShowNotificationDialog.Handle(warningDialog);
+            uiTitles = new UiTitlesModel("Warning","Warning","Warning!",NotificationMessage);
+            await ShowDialog(uiTitles);
+
 
         }
     }
 
-    private async Task ShowDialog(UiTitlesModel titles)
+    private async Task<bool> ShowDialog(UiTitlesModel titles)
     {
         DialogCalled = titles.DialogType;
-        IDialogUnit? dialog = dialogWorker.CreateDialog(titles.DialogType);
-        if (dialog != null)
-        {
-            await ShowNotificationDialog.Handle(dialog);
-        }
+        IDialogUnit? dialog = dialogWorker.CreateDialog(titles);
+        return await ShowNotificationDialog.Handle(dialog);
     }
 
 
@@ -291,7 +265,12 @@ public class HomeControlViewModel : MainViewModelBase
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"Exception occurred while analyzing methods: {ex.Message}");
+            
+            uiTitles = new UiTitlesModel("Warning","Warning","Warning!","Something went wrong: " + ex.Message);
+
+            await ShowDialog(uiTitles);
+            return;
+
         }
     }
 

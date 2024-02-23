@@ -16,6 +16,7 @@ using InsightBytes.ViewModels;
 using FluentAvalonia.UI.Windowing;
 
 using ReactiveUI;
+using InsightBytes.Services.Factory;
 
 namespace InsightBytes;
 
@@ -39,24 +40,24 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
 
     private async Task HandleNotificationDialog(InteractionContext<IDialogUnit, bool> interaction)
     {
-        var currentDialog = ViewModel?.DialogCalled;
-        var notificationMessage = ViewModel?.NotificationMessage;
+        var (dialogType, windowTitle, dialogTitle, dialogSubTitle) = ViewModel?.uiTitles;
+
         var window = this.FindAncestorOfType<AppWindow>();
 
         try
         {
-            if (currentDialog == "Warning")
+            if (dialogType == "Warning")
             {
-                var warningDialog = new WarningDialogProduct("Warning","Warning!","You cannot return from this action are you sure you would like to continue?");
+                var warningDialog = new WarningDialogProduct(windowTitle,dialogTitle,dialogSubTitle);
                 warningDialog.DataContext = interaction.Input;
                 var result = await warningDialog.ShowDialog<bool>(window);
                 interaction.SetOutput(result);
 
             }
-            else if (currentDialog == "Download")
+            else if (dialogType == "Download")
             {
 
-                var downloadDialog = new DownloadDialogViewModel("Download","Downloading",notificationMessage);
+                var downloadDialog = new DownloadDialogViewModel(windowTitle,dialogTitle,dialogSubTitle);
                 downloadDialog.DataContext = interaction.Input;
 
                 var result = await downloadDialog.ShowDialog<bool>(window);
