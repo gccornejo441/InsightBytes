@@ -76,7 +76,6 @@ public partial class MainView : UserControl
 
         var tag = item.Tag;
 
-        // Determine the symbol based on the view model type and selection status.
         Symbol? symbol = tag switch
         {
             HomeControlViewModel => selected ? Symbol.HomeFilled : Symbol.Home,
@@ -86,12 +85,10 @@ public partial class MainView : UserControl
 
         if (symbol.HasValue)
         {
-            // Create a new SymbolIconSource with the determined symbol
             item.IconSource = new SymbolIconSource { Symbol = symbol.Value };
         }
         else
         {
-            // Optionally handle cases where no symbol was determined
             item.IconSource = null;
         }
     }
@@ -160,8 +157,6 @@ public partial class MainView : UserControl
         {
             var mainPages = new MainViewModelBase[]
             {
-                //new SettingsControlViewModel { NavHeader = "Setting", IconKey = "SettingsIcon", ShowsInFooter = true },
-                //new HomeControlViewModel { NavHeader = "Home", IconKey = "HomeIcon", }
                  new SettingsControlViewModel { NavHeader = "Setting", IconKey = Symbol.Settings, ShowsInFooter = true },
                 new HomeControlViewModel { NavHeader = "Home", IconKey = Symbol.Home, }
             };

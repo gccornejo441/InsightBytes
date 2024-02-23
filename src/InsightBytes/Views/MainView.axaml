@@ -17,8 +17,8 @@
 	</Design.DataContext>
 
 	
-	<Grid RowDefinitions="*, Auto" Background="{DynamicResource NormalBlackUpDark}">
-		<Grid Background="{DynamicResource NormalBlackUpDark}" RowDefinitions="30, *">
+	<Grid  RowDefinitions="*, Auto" Background="{DynamicResource NormalBlackUpDark}">
+		<Grid Margin="0,5,0,5" Background="{DynamicResource NormalBlackUpDark}" RowDefinitions="30, *">
 			<Grid
 				Name="TitleBarHost"
 				Grid.Row="0"
