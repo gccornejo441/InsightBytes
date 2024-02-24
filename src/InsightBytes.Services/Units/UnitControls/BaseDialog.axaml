@@ -41,7 +41,6 @@
 					<TextBlock FontSize="12" Margin="20,0,0,0" Text="{Binding DialogSubTitle}" TextWrapping="Wrap" />
 				</StackPanel>
 				<StackPanel Margin="10" DockPanel.Dock="Bottom">
-					<!--<ProgressBar Name="ProgressBar" IsIndeterminate="True" />-->
 					<StackPanel Spacing="20" HorizontalAlignment="Center" Orientation="Horizontal">
 						<Button Width="80" Name="OkButton" Content="OK" Command="{Binding ConfirmCommand}" />
 						<Button Width="80" Name="CancelButton" Content="Cancel" Command="{Binding CancelCommand}" />

@@ -94,6 +94,19 @@
 			<Color x:Key="NormalWhiteDark">#dcdfe4</Color>
 			<Color x:Key="ForegroundDark">#dcdfe4</Color>
 			<Color x:Key="BackgroundDark">#282c34</Color>
+
+			<SolidColorBrush x:Key="NormalBlackUpDarkBrush" Color="{StaticResource NormalBlackUpDark}"/>
+			<SolidColorBrush x:Key="NormalBlackDarkBrush" Color="{StaticResource NormalBlackDark}"/>
+			<SolidColorBrush x:Key="NormalRedDarkBrush" Color="{StaticResource NormalRedDark}"/>
+			<SolidColorBrush x:Key="NormalGreenDarkBrush" Color="{StaticResource NormalGreenDark}"/>
+			<SolidColorBrush x:Key="NormalYellowDarkBrush" Color="{StaticResource NormalYellowDark}"/>
+			<SolidColorBrush x:Key="NormalBlueDarkBrush" Color="{StaticResource NormalBlueDark}"/>
+			<SolidColorBrush x:Key="NormalMagentaDarkBrush" Color="{StaticResource NormalMagentaDark}"/>
+			<SolidColorBrush x:Key="NormalCyanDarkBrush" Color="{StaticResource NormalCyanDark}"/>
+			<SolidColorBrush x:Key="NormalWhiteDarkBrush" Color="{StaticResource NormalWhiteDark}"/>
+			<SolidColorBrush x:Key="ForegroundDarkBrush" Color="{StaticResource ForegroundDark}"/>
+			<SolidColorBrush x:Key="BackgroundDarkBrush" Color="{StaticResource BackgroundDark}"/>
+
 		</ResourceDictionary>
 	</ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

@@ -34,7 +34,6 @@ public class FilePickerService : IFilePickerService
         catch (Exception ex)
         {
             Debug.WriteLine($"Error selecting folder: {ex.Message}");
-            // Optionally, handle the exception, e.g., return null or throw a custom exception
             return null;
         }
     }

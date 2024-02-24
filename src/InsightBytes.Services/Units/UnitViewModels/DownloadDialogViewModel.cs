@@ -5,7 +5,6 @@ namespace InsightBytes.Services.UnitViewModels;
 
 public class DownloadDialogViewModel : BaseDialog, IDialogUnit
 {
-    private string _message;
     /// <summary>
     /// Constructor for the DownloadDialogViewModel
     /// </summary>

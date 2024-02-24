@@ -1,4 +1,7 @@
-﻿using InsightBytes.Services.Units;
+﻿using Avalonia.Controls;
+using Avalonia.Threading;
+
+using InsightBytes.Services.Units;
 using InsightBytes.Services.Units.UnitViewModels;
 
 namespace InsightBytes.Services.UnitViewModels;
@@ -24,10 +27,6 @@ public class WarningDialogProduct : BaseDialog, IDialogUnit
 
         CloseDialog(baseDialogViewModel);
     }
-    /// <summary>
-    /// Default constructor for the WarningDialogProduct
-    /// </summary>
-    public WarningDialogProduct() { }
 
     /// <summary>
     /// Closes the dialog by invoking the RequestClose event from the BaseDialogProductViewModel
@@ -40,13 +39,4 @@ public class WarningDialogProduct : BaseDialog, IDialogUnit
             Close(dialogResult);
         };
     }
-
-
-    public void ShowDialog() { Show(); }
-
-    public void SetMessage(string message)
-    {
-        
-    }
-
 }

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsightBytes", "InsightByte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsightBytes.Services", "..\InsightBytes.Services\InsightBytes.Services.csproj", "{827BC76C-43EC-423C-95D2-28FDFC28D759}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InsightBytes.BlackBox", "..\InsightBytes.Console\InsightBytes.BlackBox.csproj", "{812B7AC7-4120-40CF-9CDF-D7A1A79BD10B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsightBytes.Utilities", "..\InsightBytes.Utilities\InsightBytes.Utilities.csproj", "{8A221403-CB52-4A56-BA97-61910C120295}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{827BC76C-43EC-423C-95D2-28FDFC28D759}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827BC76C-43EC-423C-95D2-28FDFC28D759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827BC76C-43EC-423C-95D2-28FDFC28D759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{812B7AC7-4120-40CF-9CDF-D7A1A79BD10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{812B7AC7-4120-40CF-9CDF-D7A1A79BD10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{812B7AC7-4120-40CF-9CDF-D7A1A79BD10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{812B7AC7-4120-40CF-9CDF-D7A1A79BD10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A221403-CB52-4A56-BA97-61910C120295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A221403-CB52-4A56-BA97-61910C120295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A221403-CB52-4A56-BA97-61910C120295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A221403-CB52-4A56-BA97-61910C120295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
