@@ -5,7 +5,7 @@
 	xmlns:local="using:InsightBytes"
 	xmlns:sty="using:FluentAvalonia.Styling"
 	RequestedThemeVariant="Dark">
-	
+
 	<Application.DataTemplates>
 		<local:ViewLocator />
 	</Application.DataTemplates>

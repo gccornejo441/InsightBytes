@@ -10,8 +10,8 @@ namespace InsightBytes.Services.ServiceUnits;
 
 public interface IAnalyzerService
 {
-    public Task<List<MethodSignature>> GetMethodSignatures(string filePath);
+    public Task<List<MethodSignature>> GetMethodSignaturesAsync(string filePath);
 
-    public Task<List<MethodSignature>> GetMethodSignatures(string filePath,CancellationToken cancellationToken);
+    public Task<List<MethodSignature>> GetMethodSignaturesAsync(string filePath,CancellationToken cancellationToken);
 
 }

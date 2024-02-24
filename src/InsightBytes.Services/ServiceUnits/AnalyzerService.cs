@@ -18,27 +18,26 @@ namespace InsightBytes.Services.ServiceUnits;
 public class AnalyzerService : IAnalyzerService
 {
     ParserHelpers _parserHelpers;
-    CancellationToken _cancellationToken;
 
-    public AnalyzerService(ParserHelpers parserHelpers, CancellationToken cancellationToken = default) 
+    public AnalyzerService(ParserHelpers parserHelpers) 
     { 
-        _parserHelpers = parserHelpers; 
-        _cancellationToken = cancellationToken;
+        _parserHelpers = parserHelpers;
     }
 
 
     /// <summary>
-    /// Retrieves all methods 
+    /// Retrieves all methods from a specified file.
     /// </summary>
     /// <param name="filePath"></param>
-    /// <returns>
-    /// Returns a list of <see cref="MethodSignature"/> objects.
-    /// </returns>
-    public async Task<List<MethodSignature>> GetMethodSignatures(string filePath, CancellationToken cancellationToken)
+    /// <param name="cancellationToken"></param>
+    /// <returns>List of <see cref="MethodSignature"/> objects.</returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="FileIOException"></exception>
+    public async Task<List<MethodSignature>> GetMethodSignaturesAsync(string filePath, CancellationToken cancellationToken)
     {
         try
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
                 throw new FileNotFoundException("File not found",filePath);
 
             var root = await _parserHelpers.GetNodeFromFileAsync(filePath,cancellationToken);
@@ -66,11 +65,18 @@ public class AnalyzerService : IAnalyzerService
         }
     }
 
-    public async Task<List<MethodSignature>> GetMethodSignatures(string filePath)
+    /// <summary>
+    /// Retrieves all methods from a specified file.
+    /// </summary>
+    /// <param name="filePath"></param>
+    /// <returns>List of <see cref="MethodSignature"/> objects.</returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="FileIOException"></exception>
+    public async Task<List<MethodSignature>> GetMethodSignaturesAsync(string filePath)
     {
         try
         {
-            if (File.Exists(filePath))
+            if (!File.Exists(filePath))
                 throw new FileNotFoundException("File not found",filePath);
 
             var fileContent = await File.ReadAllTextAsync(filePath);

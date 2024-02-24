@@ -42,7 +42,7 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
     {
         var (dialogType, windowTitle, dialogTitle, dialogSubTitle) = ViewModel?.uiTitles;
 
-        var window = this.FindAncestorOfType<AppWindow>();
+        var window = this.FindAncestorOfType<Window>();
 
         try
         {
@@ -81,7 +81,7 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
     /// <remarks>LogError is a helper method that needs to be moved to a helper class.</remarks>
     private void LogError(Exception ex)
     {
-        var warningDialog = new WarningDialogProduct("Error","Error!",ex.Message);
+        var warningDialog = new WarningDialogProduct("Error","Error!","Restart the application and try again.\r\nIf the problem persists, please contact our support team for help and mention 'Window Display Issue'");
         warningDialog.DataContext = warningDialog;
 
         warningDialog.Show();

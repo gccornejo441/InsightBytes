@@ -55,7 +55,7 @@
 						</SelectableTextBlock>
 					</ScrollViewer>
 				</Border>
-			<view:MainStatusBarView Grid.Row="1" />
+				<view:MainStatusBarView Grid.Row="1" />
 			</Grid>
 
 		</Grid>
