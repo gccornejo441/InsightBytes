@@ -1,14 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿
 using FluentAvalonia.UI.Controls;
 
 using InsightBytes.Services.Factory;
@@ -16,19 +6,44 @@ using InsightBytes.Services.Models;
 using InsightBytes.Services.ServiceUnits;
 using InsightBytes.Services.Units;
 using InsightBytes.Services.UnitViewModels;
-
 using InsightBytes.Services.Utils;
 
 using ReactiveUI;
 
+using System;
+
+using System.IO;
+
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Text;
+using System.Threading;
+
+using System.Threading.Tasks;
+
+using System.Windows.Input;
+
 namespace InsightBytes.ViewModels;
+
 public class HomeControlViewModel : MainViewModelBase
 {
-    CancellationTokenSource _cts;
 
     readonly CosmeticHelpers _cosmeticHelpers;
+    CancellationTokenSource _cts;
 
     private string _downloadMessage;
+
+    bool _isClearVisible = false;
+
+    bool _isDownloadVisible = false;
+
+    bool _isPauseVisible = false;
+
+    bool _isPlayVisible = true;
+
+    bool _isRunning = false;
+    bool _isStopVisible = false;
 
     private StringBuilder _logBuilder = new StringBuilder();
     private string _notificationMessage;
@@ -48,162 +63,30 @@ public class HomeControlViewModel : MainViewModelBase
 
     private bool _statusBarVisible = false;
 
+
+    int _symbolPlayPause = (int)Symbol.PauseFilled;
+
+    ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);
+
     public readonly DialogWorker dialogWorker = new DialogWorker();
-   
+
     public HomeControlViewModel()
     {
         _cts = new CancellationTokenSource();
-
         _cosmeticHelpers = new CosmeticHelpers();
         _parserHelpers = new ParserHelpers();
-
         ShowNotificationDialog = new Interaction<IDialogUnit,bool>();
 
-        StopScriptCommand = ReactiveCommand.Create(() =>
-        {
-            _cts.Cancel();
-        });
-
+        StopScriptCommand = ReactiveCommand.Create(_cts.Cancel);
         GetFileCommand = ReactiveCommand.CreateFromTask(SelectFileAsync);
-
-
-
         RunScriptCommand = ReactiveCommand.CreateFromTask(RunAsync);
         TogglePauseCommand = ReactiveCommand.Create(TogglePause);
-
         ClearLogWindowCommand = ReactiveCommand.Create(Clear);
         DownloadCommand = ReactiveCommand.CreateFromTask(DownloadData);
         SelectAllCommand = ReactiveCommand.CreateFromTask(async () =>
-        {
-            await SelectAllTextInteraction.Handle(Unit.Default);
-        });
-    }
-    public ICommand TogglePauseCommand { get; }
-
-    bool _isRunning = false;
-    public bool IsRunning
-    {
-        get => _isRunning;
-        set => this.RaiseAndSetIfChanged(ref _isRunning,value);
-    }
-
-
-    int _symbolCode = (int)Symbol.PauseFilled;
-
-    public int SymbolCode
-    {
-        get => _symbolCode;
-        set => this.RaiseAndSetIfChanged(ref _symbolCode,value);
-    }
-    public void ChangeContext()
-    {
-        if (IsRunning)
-        {
-            SymbolCode = (int)Symbol.Play;
-        }
-        else
-        {
-            SymbolCode = (int)Symbol.PauseFilled;
-        }
-    }
-
-    public ICommand PauseScriptCommand { get; }
-    public ICommand ResumeScriptCommand { get; }
-
-    ManualResetEventSlim pauseEvent = new ManualResetEventSlim(true);
-    private void TogglePause()
-    {
-        if (IsRunning)
-        {
-            pauseEvent.Reset();
-            ChangeContext();
-        }
-        else
-        {
-            pauseEvent.Set();
-            ChangeContext();
-        }
-        IsRunning = !IsRunning;
-    }
-
-    bool _isPauseVisible = false;
-    public bool IsPauseVisible
-    {
-        get => _isPauseVisible;
-        set => this.RaiseAndSetIfChanged(ref _isPauseVisible,value);
-    }
-
-    bool _isPlayVisible = true;
-    public bool IsPlayVisible
-    {
-        get => _isPlayVisible;
-        set => this.RaiseAndSetIfChanged(ref _isPlayVisible,value);
-    }
-
-    async Task RunAsync()
-    {
-
-        IsRunning = true;
-        IsPlayVisible = false;
-        IsPauseVisible = true;
-
-
-        if (string.IsNullOrWhiteSpace(_selectedDirectory))
-        {
-            _logBuilder.Clear();
-            this.RaisePropertyChanged(nameof(LogMessages));
-            LogData(new MethodSignature(0,DateTime.Now.ToString("HH:mm:ss"),"Please select a directory to analyze methods."));
-            return;
-        }
-
-        try
-        {
-            _logBuilder.Clear();
-
-            this.RaisePropertyChanged(nameof(LogMessages));
-
-            StatusBarVisible = true;
-
-            var _analyzer = new AnalyzerService(_parserHelpers);
-
-            var methodSignatures = await _analyzer.GetMethodSignaturesAsync(_selectedDirectory);
-
-            StatusBarProgressMaximum = methodSignatures.Count;
-
-            if (methodSignatures.Count == 0)
             {
-                LogData(new MethodSignature(0,DateTime.Now.ToString("HH:mm:ss"),$"No methods found in the selected directory: {_selectedDirectory}"));
-            }
-            else
-            {
-                foreach (var methodSignature in methodSignatures)
-                {
-                    await Task.Run(() => pauseEvent.Wait(_cts.Token));
-
-                    if (_cts.Token.IsCancellationRequested)
-                        break;
-
-                    await _cosmeticHelpers.SimulateLongRunningOperationAsync();
-                    LogData(methodSignature);
-                    StatusBarProgressValue++;
-                }
-                IsRunning = false;
-
-            }
-        }
-        catch (Exception ex)
-        {
-
-            uiTitles = new UiTitlesModel("Warning","Warning","Warning!","Something went wrong: " + ex.Message);
-
-            await ShowDialog(uiTitles);
-            return;
-        }
-        finally
-        {
-            IsPauseVisible = false;
-            IsPlayVisible = true;
-        }
+                await SelectAllTextInteraction.Handle(Unit.Default);
+            });
     }
 
     async void Clear()
@@ -231,15 +114,15 @@ public class HomeControlViewModel : MainViewModelBase
             {
                 return;
             }
-
         }
         else
         {
             LogMessages = "Nothing to clear.";
         }
+        IsClearVisible = false;
     }
 
-    private async Task DownloadData()
+    async Task DownloadData()
     {
         try
         {
@@ -266,8 +149,6 @@ public class HomeControlViewModel : MainViewModelBase
             NotificationMessage = $"Exception occurred while saving log data: {ex.Message}";
             uiTitles = new UiTitlesModel("Warning","Warning","Warning!",NotificationMessage);
             await ShowDialog(uiTitles);
-
-
         }
     }
 
@@ -282,6 +163,92 @@ public class HomeControlViewModel : MainViewModelBase
     {
         string formattedMessage = methodSignature.ToString();
         LogMessages = formattedMessage + "\n";
+    }
+
+    private void ResetUIState()
+    {
+        IsRunning = false;
+        IsPlayVisible = true;
+        IsPauseVisible = false;
+        IsClearVisible = true;
+        IsStopVisible = false;
+        StatusBarVisible = false;
+        StatusBarProgressValue = 0;
+        IsDownloadVisible = true;
+    }
+
+    async Task RunAsync()
+    {
+        SetUIStateRunning();
+
+        if (string.IsNullOrWhiteSpace(_selectedDirectory))
+        {
+            _logBuilder.Clear();
+            this.RaisePropertyChanged(nameof(LogMessages));
+            LogData(
+                new MethodSignature(
+                    0,
+                    DateTime.Now.ToString("HH:mm:ss"),
+                    "Please select a directory to analyze methods."));
+            ResetUIState();
+
+            if (_cts.Token.IsCancellationRequested)
+                return;
+        }
+
+        try
+        {
+            _logBuilder.Clear();
+            StatusBarVisible = true;
+
+            var _analyzer = new AnalysisService(_parserHelpers);
+
+            var methodSignatures = await _analyzer.GetMethodSignaturesAsync(_selectedDirectory);
+
+            StatusBarProgressMaximum = methodSignatures.Count;
+
+            if (methodSignatures.Count == 0)
+            {
+                LogData(
+                    new MethodSignature(
+                        0,
+                        DateTime.Now.ToString("HH:mm:ss"),
+                        $"No methods found in the selected directory: {_selectedDirectory}"));
+            }
+            else
+            {
+                foreach (var methodSignature in methodSignatures)
+                {
+                    try
+                    {
+                        await Task.Run(() => pauseEvent.Wait());
+
+                        if (_cts.Token.IsCancellationRequested)
+                            break;
+
+                        await _cosmeticHelpers.SimulateLongRunningOperationAsync();
+                        LogData(methodSignature);
+                        StatusBarProgressValue++;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            uiTitles = new UiTitlesModel("Warning","Warning","Warning!","Something went wrong: " + ex.Message);
+            await ShowDialog(uiTitles);
+        }
+        finally
+        {
+            ResetUIState();
+
+            _cts.Dispose();
+            _cts = new CancellationTokenSource();
+        }
     }
 
     private async Task SelectFileAsync()
@@ -314,6 +281,17 @@ public class HomeControlViewModel : MainViewModelBase
         }
     }
 
+    private void SetUIStateRunning()
+    {
+        IsRunning = true;
+        IsPlayVisible = false;
+        IsPauseVisible = true;
+        IsClearVisible = false;
+        IsStopVisible = true;
+        StatusBarVisible = false;
+        IsDownloadVisible = false;
+    }
+
     private async Task<bool> ShowDialog(UiTitlesModel titles)
     {
         DialogCalled = titles.DialogType;
@@ -321,8 +299,40 @@ public class HomeControlViewModel : MainViewModelBase
         return await ShowNotificationDialog.Handle(dialog);
     }
 
+    private void TogglePause()
+    {
+        if (IsRunning)
+        {
+            IsPauseVisible = true;
+            IsStopVisible = false;
+            this.RaisePropertyChanged(nameof(IsStopVisible));
+            pauseEvent.Reset();
+            ChangeContext();
+        }
+        else
+        {
+            IsStopVisible = true;
+            pauseEvent.Set();
+            ChangeContext();
+        }
+        IsRunning = !IsRunning;
+    }
+
+    public void ChangeContext()
+    {
+        if (IsRunning)
+        {
+            SymbolPlayPause = (int)Symbol.Play;
+        }
+        else
+        {
+            SymbolPlayPause = (int)Symbol.PauseFilled;
+        }
+    }
+
 
     public ICommand ClearLogWindowCommand { get; }
+
     public ICommand DownloadCommand { get; }
 
     public string DownloadMessage
@@ -330,7 +340,24 @@ public class HomeControlViewModel : MainViewModelBase
         get => _downloadMessage;
         set => this.RaiseAndSetIfChanged(ref _downloadMessage,value);
     }
+
     public ICommand GetFileCommand { get; }
+
+    public bool IsClearVisible { get => _isClearVisible; set => this.RaiseAndSetIfChanged(ref _isClearVisible,value); }
+
+    public bool IsDownloadVisible
+    {
+        get => _isDownloadVisible;
+        set => this.RaiseAndSetIfChanged(ref _isDownloadVisible,value);
+    }
+
+    public bool IsPauseVisible { get => _isPauseVisible; set => this.RaiseAndSetIfChanged(ref _isPauseVisible,value); }
+
+    public bool IsPlayVisible { get => _isPlayVisible; set => this.RaiseAndSetIfChanged(ref _isPlayVisible,value); }
+
+    public bool IsRunning { get => _isRunning; set => this.RaiseAndSetIfChanged(ref _isRunning,value); }
+
+    public bool IsStopVisible { get => _isStopVisible; set => this.RaiseAndSetIfChanged(ref _isStopVisible,value); }
 
     public string LogMessages
     {
@@ -341,13 +368,17 @@ public class HomeControlViewModel : MainViewModelBase
             this.RaisePropertyChanged(nameof(LogMessages));
         }
     }
+
     public string NotificationMessage
     {
         get => _notificationMessage;
         set => this.RaiseAndSetIfChanged(ref _notificationMessage,value);
     }
+
     public ICommand RunScriptCommand { get; }
+
     public ICommand SelectAllCommand { get; }
+
     public Interaction<Unit,Unit> SelectAllTextInteraction { get; } = new Interaction<Unit,Unit>();
 
     public string SelectedDirectory
@@ -361,6 +392,7 @@ public class HomeControlViewModel : MainViewModelBase
         get => _selectedFileName;
         set => this.RaiseAndSetIfChanged(ref _selectedFileName,value);
     }
+
     public Interaction<DownloadDialogViewModel,bool> ShowDownloadDialog { get; }
 
     public bool ShowLoadProgress
@@ -375,6 +407,7 @@ public class HomeControlViewModel : MainViewModelBase
         get => _showMenuAndStatusBar;
         set => this.RaiseAndSetIfChanged(ref _showMenuAndStatusBar,value);
     }
+
     public Interaction<IDialogUnit,bool> ShowNotificationDialog { get; }
 
     public int StatusBarProgressMaximum
@@ -396,7 +429,16 @@ public class HomeControlViewModel : MainViewModelBase
     }
 
     public ICommand StopScriptCommand { get; }
+
     public ICommand SwitchContextCommand { get; }
+
+    public int SymbolPlayPause
+    {
+        get => _symbolPlayPause;
+        set => this.RaiseAndSetIfChanged(ref _symbolPlayPause,value);
+    }
+
+    public ICommand TogglePauseCommand { get; }
 
     public UiTitlesModel uiTitles { get; set; }
 }

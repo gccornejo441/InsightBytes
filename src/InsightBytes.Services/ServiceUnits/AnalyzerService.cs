@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace InsightBytes.Services.ServiceUnits;
 
-public class AnalyzerService : IAnalyzerService
+public class AnalysisService : IAnalysisService
 {
     ParserHelpers _parserHelpers;
 
-    public AnalyzerService(ParserHelpers parserHelpers) 
+    public AnalysisService(ParserHelpers parserHelpers) 
     { 
         _parserHelpers = parserHelpers;
     }

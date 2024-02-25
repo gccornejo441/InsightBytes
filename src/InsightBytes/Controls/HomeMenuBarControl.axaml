@@ -57,12 +57,15 @@
 			</Button>
 			<Button IsVisible="{Binding IsPauseVisible}" Command="{Binding TogglePauseCommand}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalGreenDark}"
-			   Symbol="{Binding SymbolCode, Converter={StaticResource IntToSymbolConverter}}" />
+			   Symbol="{Binding SymbolPlayPause, Converter={StaticResource IntToSymbolConverter}}" />
 			</Button>
-			<Button Command="{Binding ClearLogWindowCommand}">
-				<ui:SymbolIcon Foreground="{DynamicResource NormalRedDark}" Symbol="Clear" />
+			<Button IsVisible="{Binding IsClearVisible}" Command="{Binding ClearLogWindowCommand}">
+				<ui:SymbolIcon Foreground="{DynamicResource NormalRedDark}" Symbol="Clear"/>
 			</Button>
-			<Button Command="{Binding DownloadCommand}">
+			<Button IsVisible="{Binding IsStopVisible}" Command="{Binding StopScriptCommand}">
+				<ui:SymbolIcon Foreground="{DynamicResource NormalRedDark}" Symbol="StopFilled" />
+			</Button>
+			<Button IsVisible="{Binding IsDownloadVisible}" Command="{Binding DownloadCommand}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalBlueDark}" Symbol="Download" />
 			</Button>
 

@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis;
 
 namespace InsightBytes.Services.ServiceUnits;
 
-public interface IAnalyzerService
+public interface IAnalysisService
 {
     public Task<List<MethodSignature>> GetMethodSignaturesAsync(string filePath);
 
