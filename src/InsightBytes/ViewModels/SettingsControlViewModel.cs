@@ -8,6 +8,8 @@ using Avalonia.Styling;
 
 using FluentAvalonia.Styling;
 
+using InsightBytes.Utilities.Model;
+
 using ReactiveUI;
 
 using System;
@@ -16,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using System.Reactive.Linq;
+using System.Reflection;
 
 namespace InsightBytes.ViewModels;
 
@@ -184,8 +187,7 @@ public class SettingsControlViewModel : MainViewModelBase
         set => this.RaiseAndSetIfChanged(ref _currentFlowDirection, value);
     }
 
-    public string CurrentVersion => typeof(FluentAvalonia.UI.Controls.NavigationView).Assembly.GetName().Version?.ToString(
-        );
+    public string CurrentVersion => GetVersion();
 
     public Color CustomAccentColor
     {
@@ -201,5 +203,20 @@ public class SettingsControlViewModel : MainViewModelBase
     {
         get => _useCustomAccentColor;
         set => this.RaiseAndSetIfChanged(ref _useCustomAccentColor, value);
+    }
+
+
+    public string GetVersion()
+    {
+        var version = Assembly.GetEntryAssembly()?.GetName().Version;
+
+        if(version != null)
+        {
+            var build = version.Build != -1 ? $".{version.Build}" : string.Empty;
+            var revision = version.Revision != -1 ? $".{version.Revision}" : string.Empty;
+            return $"{version.Major}.{version.Minor}{build}{revision}";
+        }
+
+        return "0.0.0.0";
     }
 }

@@ -2,24 +2,34 @@
 	x:Class="InsightBytes.HomeMenuBarControl"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:conv="using:InsightBytes.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:ui="using:FluentAvalonia.UI.Controls"
 	xmlns:vm="using:InsightBytes.ViewModels"
-	xmlns:conv="using:InsightBytes.Converters"
 	d:DesignHeight="50"
 	d:DesignWidth="1000"
 	x:CompileBindings="True"
 	x:DataType="vm:HomeControlViewModel"
 	mc:Ignorable="d">
 
-	<UserControl.Resources>
-		<conv:IntToSymbolConverter x:Key="IntToSymbolConverter"/>
-	</UserControl.Resources>
-
 	<Design.DataContext>
 		<vm:HomeControlViewModel />
 	</Design.DataContext>
+
+	<UserControl.Resources>
+		<conv:IntToSymbolConverter x:Key="IntToSymbolConverter" />
+	</UserControl.Resources>
+
+	<UserControl.KeyBindings>
+		<KeyBinding Command="{Binding RunScriptCommand}" Gesture="F5" />
+		<KeyBinding Command="{Binding GetFileCommand}" Gesture="Ctrl+O" />
+		<KeyBinding Command="{Binding DownloadCommand}" Gesture="Ctrl+Shift+D" />
+		<KeyBinding Command="{Binding TogglePauseCommand}" Gesture="Ctrl+Shift+P" />
+		<KeyBinding Command="{Binding StopScriptCommand}" Gesture="Ctrl+Shift+X" />
+		<KeyBinding Command="{Binding ClearLogWindowCommand}" Gesture="Ctrl+Shift+C" />
+		<KeyBinding Command="{Binding SelectAllCommand}" Gesture="Ctrl+A" />
+	</UserControl.KeyBindings>
 
 	<UserControl.Styles>
 		<Style Selector="Button">
@@ -52,17 +62,22 @@
 			<Button Command="{Binding GetFileCommand}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalYellowDark}" Symbol="OpenFile" />
 			</Button>
-			<Button IsVisible="{Binding IsPlayVisible}"  Command="{Binding RunScriptCommand}">
+			<Button
+				Command="{Binding RunScriptCommand}"
+				IsVisible="{Binding IsPlayVisible}"
+				ToolTip.Tip="Run (F5)">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalGreenDark}" Symbol="PlayFilled" />
 			</Button>
-			<Button IsVisible="{Binding IsPauseVisible}" Command="{Binding TogglePauseCommand}">
-				<ui:SymbolIcon Foreground="{DynamicResource NormalGreenDark}"
-			   Symbol="{Binding SymbolCode, Converter={StaticResource IntToSymbolConverter}}" />
+			<Button Command="{Binding TogglePauseCommand}" IsVisible="{Binding IsPauseVisible}">
+				<ui:SymbolIcon Foreground="{DynamicResource NormalGreenDark}" Symbol="{Binding SymbolPlayPause, Converter={StaticResource IntToSymbolConverter}}" />
 			</Button>
-			<Button Command="{Binding ClearLogWindowCommand}">
+			<Button Command="{Binding ClearLogWindowCommand}" IsVisible="{Binding IsClearVisible}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalRedDark}" Symbol="Clear" />
 			</Button>
-			<Button Command="{Binding DownloadCommand}">
+			<Button Command="{Binding StopScriptCommand}" IsVisible="{Binding IsStopVisible}">
+				<ui:SymbolIcon Foreground="{DynamicResource NormalRedDark}" Symbol="StopFilled" />
+			</Button>
+			<Button Command="{Binding DownloadCommand}" IsVisible="{Binding IsDownloadVisible}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalBlueDark}" Symbol="Download" />
 			</Button>
 

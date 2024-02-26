@@ -6,7 +6,7 @@ using FluentAvalonia.UI.Controls;
 
 namespace InsightBytes.Converters
 {
-    internal class IntToSymbolConverter : IValueConverter
+    public class IntToSymbolConverter : IValueConverter
     {
         public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

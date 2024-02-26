@@ -7,24 +7,8 @@
 	xmlns:views="using:InsightBytes"
 	d:DesignHeight="720"
 	d:DesignWidth="1280"
+	WindowStartupLocation="CenterScreen"
 	x:CompileBindings="True"
-	Icon="/Assets/report-repo.ico"
-	Background="Transparent"
-	TransparencyLevelHint="AcrylicBlur"
-	ExtendClientAreaToDecorationsHint="True">
-
-	<Panel PointerPressed="Panel_PointerPressed" >
-		<ExperimentalAcrylicBorder IsHitTestVisible="False">
-			<ExperimentalAcrylicBorder.Material>
-				<ExperimentalAcrylicMaterial
-					BackgroundSource="Digger"
-					MaterialOpacity="0.65"
-					TintColor="Black"
-					TintOpacity="1" />
-			</ExperimentalAcrylicBorder.Material>
-		</ExperimentalAcrylicBorder>
-
-		<views:MainView/>
-	</Panel>
-
+	Title="Insight Bytes">
+	<views:MainView/>
 </Window>

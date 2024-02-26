@@ -8,7 +8,7 @@ using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Windowing;
 
 namespace InsightBytes.Views;
-public partial class MainWindow : Window 
+public partial class MainWindow : AppWindow 
 { 
     public MainWindow()
     {
@@ -17,26 +17,7 @@ public partial class MainWindow : Window
         this.AttachDevTools();
 #endif
 
-        this.ExtendClientAreaToDecorationsHint = true;
-     
-        Application.Current.ActualThemeVariantChanged += OnActualThemeVariantChanged;
-    }
-
-   
-
-    private void OnActualThemeVariantChanged(object? sender, EventArgs e)
-    {
-        //if(IsWindows11)
-        //{
-        //    if(ActualThemeVariant != FluentAvaloniaTheme.HighContrastTheme)
-        //    {
-
-        //    }
-        //}
-    }
-
-    private void Panel_PointerPressed(object? sender,Avalonia.Input.PointerPressedEventArgs e)
-    {
-        this.BeginMoveDrag(e);
+        TitleBar.ExtendsContentIntoTitleBar = true;
+        TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
     }
 }

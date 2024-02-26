@@ -15,8 +15,8 @@
 	<Design.DataContext>
 		<vm:HomeControlViewModel />
 	</Design.DataContext>
-
-	<ScrollViewer Padding="50,0,0,0" Background="{DynamicResource NormalBlackDark}">
+			
+			<ScrollViewer Padding="50,0,0,0" Background="{DynamicResource NormalBlackDark}">
 		<Grid ColumnDefinitions="*,Auto" RowDefinitions="50,*">
 			<DockPanel Grid.Row="0">
 				<StackPanel Spacing="0">

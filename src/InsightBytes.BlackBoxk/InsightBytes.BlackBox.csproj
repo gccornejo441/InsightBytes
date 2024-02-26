@@ -8,11 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\InsightBytes\InsightBytes.csproj" />
+    <ProjectReference Include="..\InsightBytes.Services\InsightBytes.Services.csproj" />
+    <ProjectReference Include="..\InsightBytes.Utilities\InsightBytes.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
