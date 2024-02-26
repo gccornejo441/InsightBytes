@@ -60,6 +60,8 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build InsightBytes/InsightBytes.csproj --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
+      working-directory: ./InsightBytes
+
 
 
