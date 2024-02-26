@@ -191,9 +191,6 @@ public class HomeControlViewModel : MainViewModelBase
                     DateTime.Now.ToString("HH:mm:ss"),
                     "Please select a directory to analyze methods."));
             ResetUIState();
-
-            if (_cts.Token.IsCancellationRequested)
-                return;
         }
 
         try

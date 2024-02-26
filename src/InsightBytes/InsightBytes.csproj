@@ -61,5 +61,8 @@
     <Compile Update="Views\AppSplash.axaml.cs">
       <DependentUpon>AppSplash.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\InsightBytesEditorControl.axaml.cs">
+      <DependentUpon>InsightBytesEditorControl.axaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

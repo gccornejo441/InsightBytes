@@ -7,6 +7,7 @@
 	xmlns:views="using:InsightBytes"
 	d:DesignHeight="720"
 	d:DesignWidth="1280"
+	WindowStartupLocation="CenterScreen"
 	x:CompileBindings="True"
 	Title="Insight Bytes">
 	<views:MainView/>

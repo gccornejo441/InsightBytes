@@ -4,9 +4,9 @@ using Avalonia.Markup.Xaml;
 
 namespace InsightBytes;
 
-public partial class HomeBarControl : UserControl
+public partial class InsightBytesEditorControl : UserControl
 {
-    public HomeBarControl()
+    public InsightBytesEditorControl()
     {
         InitializeComponent();
     }

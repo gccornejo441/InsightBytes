@@ -25,6 +25,7 @@ public class ParserHelpers
             }
             else
             {
+                throw new FileNotFoundException("File not found", filePath);
             }
         }
         catch (Exception ex)
