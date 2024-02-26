@@ -396,5 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-src/InsightBytes.Services/Model/*.cs
-src/InsightBytes.Utilities/Model/Category.cs
+
+.cr/*
+
+src/InsightBytes.Utilities/Model/*
+

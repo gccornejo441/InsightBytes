@@ -22,14 +22,13 @@
 	</UserControl.Resources>
 
 	<UserControl.KeyBindings>
-		<KeyBinding Gesture="F5" Command="{Binding RunScriptCommand}" />
-		<KeyBinding Gesture="Ctrl+O" Command="{Binding GetFileCommand}" />
-		<KeyBinding Gesture="Ctrl+S" Command="{Binding SaveFileCommand}" />
-		<KeyBinding Gesture="Ctrl+Shift+D" Command="{Binding DownloadCommand}" />
-		<KeyBinding Gesture="Ctrl+Shift+P" Command="{Binding TogglePauseCommand}" />
-		<KeyBinding Gesture="Ctrl+Shift+X" Command="{Binding StopScriptCommand}" />
-		<KeyBinding Gesture="Ctrl+Shift+C" Command="{Binding ClearLogWindowCommand}" />
-		<KeyBinding Gesture="Ctrl+A" Command="{Binding SelectAllCommand}" />
+		<KeyBinding Command="{Binding RunScriptCommand}" Gesture="F5" />
+		<KeyBinding Command="{Binding GetFileCommand}" Gesture="Ctrl+O" />
+		<KeyBinding Command="{Binding DownloadCommand}" Gesture="Ctrl+Shift+D" />
+		<KeyBinding Command="{Binding TogglePauseCommand}" Gesture="Ctrl+Shift+P" />
+		<KeyBinding Command="{Binding StopScriptCommand}" Gesture="Ctrl+Shift+X" />
+		<KeyBinding Command="{Binding ClearLogWindowCommand}" Gesture="Ctrl+Shift+C" />
+		<KeyBinding Command="{Binding SelectAllCommand}" Gesture="Ctrl+A" />
 	</UserControl.KeyBindings>
 
 	<UserControl.Styles>
@@ -63,7 +62,10 @@
 			<Button Command="{Binding GetFileCommand}">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalYellowDark}" Symbol="OpenFile" />
 			</Button>
-			<Button ToolTip.Tip="Run (F5)" Command="{Binding RunScriptCommand}" IsVisible="{Binding IsPlayVisible}">
+			<Button
+				Command="{Binding RunScriptCommand}"
+				IsVisible="{Binding IsPlayVisible}"
+				ToolTip.Tip="Run (F5)">
 				<ui:SymbolIcon Foreground="{DynamicResource NormalGreenDark}" Symbol="PlayFilled" />
 			</Button>
 			<Button Command="{Binding TogglePauseCommand}" IsVisible="{Binding IsPauseVisible}">

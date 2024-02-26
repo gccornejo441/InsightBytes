@@ -4,8 +4,24 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <StartupObject>InsightBytes.Program</StartupObject>
+    <ApplicationIcon>Assets\report-repo.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Title>Insight Bytes</Title>
+    <PackageProjectUrl>https://github.com/gccornejo441/InsightBytes</PackageProjectUrl>
+    <Description>A simple desktop application for C#</Description>
+    <Company>$(Authors)</Company>
+    <Version>1.1.0</Version>
+    <RepositoryUrl>https://github.com/gccornejo441/InsightBytes</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Windows;AvaloniaUI</PackageTags>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>False</IncludeSymbols>
+    <Copyright>Copyright © 2024 Insight Bytes</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +38,10 @@
     <AvaloniaResource Include="Styles\Colors.axaml" />
     <AvaloniaResource Include="Styles\CustomTheme.axaml" />
     <AvaloniaResource Include="Styles\Icons.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\report-repo.ico" />
   </ItemGroup>
 
 
@@ -43,6 +63,14 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 
