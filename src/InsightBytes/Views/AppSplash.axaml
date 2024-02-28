@@ -6,20 +6,29 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	d:DesignHeight="400"
 	d:DesignWidth="600"
+	xmlns:vm="using:InsightBytes.ViewModels"
+	x:DataType="vm:MainWindowViewModel"
 	mc:Ignorable="d">
 	<Border Background="{DynamicResource BackgroundDark}">
 		<Grid RowDefinitions="*,Auto,150">
 			<Image
-				Width="128"
-				Height="128"
+				Width="100"
+				Height="100"
 				IsHitTestVisible="False"
 				Source="/Assets/report-repo.ico" />
-			<ProgressBar
-				Grid.Row="1"
-				Width="45"
-				Height="45"
-				Classes="Circle"
-				IsIndeterminate="True" />
- 		</Grid>
+			<Grid
+				Grid.Row="2"
+				RowDefinitions="*,15,5">
+				<TextBlock
+					Grid.Row="1"
+					FontSize="10"
+					FontWeight="SemiBold"
+					Foreground="{DynamicResource NormalGreenDark}"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Text="Loading..." />
+				<ProgressBar Grid.Row="3" IsIndeterminate="True" Foreground="{DynamicResource NormalGreenDark}" />
+			</Grid>
+		</Grid>
 	</Border>
 </UserControl>
