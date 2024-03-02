@@ -158,7 +158,8 @@ public partial class MainView : UserControl
             var mainPages = new MainViewModelBase[]
             {
                  new SettingsControlViewModel { NavHeader = "Setting", IconKey = Symbol.Settings, ShowsInFooter = true },
-                new HomeControlViewModel { NavHeader = "Home", IconKey = Symbol.Home, }
+                new HomeControlViewModel { NavHeader = "Home", IconKey = Symbol.Home, },
+                new ChatControlViewModel { NavHeader = "Chat", IconKey = Symbol.Contact, }
             };
             var menuItems = new List<NavigationViewItemBase>(4);
             var footerItems = new List<NavigationViewItemBase>(2);

@@ -12,6 +12,19 @@ using Newtonsoft.Json;
 
 namespace InsightBytes.BlackBox;
 
+public class Sandwich
+{
+    public string Name { get; set; }
+    public string Message { get; set; }
+
+    public Sandwich(string name, string message)
+    {
+        Name = name;
+        Message = message;
+    }
+}
+
+
 internal class Program
 {
     private readonly HttpClient _httpClient;
@@ -20,26 +33,67 @@ internal class Program
 
     static async Task Main(string[] args)
     {
+        var newSandwich = new Sandwich("Ham and Cheese", "I love ham and cheese sandwiches.");
         var program = new Program();
+        await program.PostSandwich(newSandwich);
 
-        var sdpOffer = @"v=0
-o=- 5841829617509545627 1709000931 IN IP4 0.0.0.0
-s=-
-t=0 0
-a=fingerprint:sha-256 52:74:14:CD:57:F7:20:26:D1:1E:C0:CC:5C:D4:61:A0:AF:16:61:BB:70:BE:70:5C:F8:B9:C4:D7:76:10:70:9D
-a=extmap-allow-mixed
-a=group:BUNDLE 0
-m=application 9 UDP/DTLS/SCTP webrtc-datachannel
-c=IN IP4 0.0.0.0
-a=setup:actpass
-a=mid:0
-a=sendrecv
-a=sctp-port:5000
-a=ice-ufrag:xqpbWsfYSDiUJdbC
-a=ice-pwd:MFTlHpwBEyxmFmcLFctEXCflyLUaaljX";
+        var sandwich = await program.GetSandwichByNameAsync("Ham and Cheese");
+       
+        if(sandwich != null)
+        {
+            Console.WriteLine($"{sandwich.Name} : {sandwich.Message}");
+        } else
+        {
+            Console.WriteLine("No sandwich found.");
+        }
+ 
 
-        await program.SendOfferAsync(sdpOffer);
+        //await program.SendOfferAsync(sdpOffer);
+        //int num = 0;
+        //while (num < 9000)
+        //{
+        //    var sandwichFromGin = await program.GetSandwich();
+        //    Console.WriteLine(sandwichFromGin);
+        //    num++;
+        //}
     }
+    ///path?id=1234&name=Manu&value=
+    public async Task PostSandwich(Sandwich sandwichData)
+    {
+        var resp = await _httpClient.PostAsync("http://localhost:8080/sandwich", new StringContent(JsonConvert.SerializeObject(sandwichData), Encoding.UTF8, "application/json"));
+        if(!resp.IsSuccessStatusCode)
+        {
+            Console.WriteLine("Failed to post sandwich.");
+        }
+
+        Console.WriteLine(resp.StatusCode);
+    }
+
+    public async Task<Sandwich> GetSandwichByNameAsync(string name)
+    {
+        var resp = await _httpClient.GetAsync($"http://localhost:8080/sandwich/{name}");
+        if (resp.IsSuccessStatusCode)
+        {
+            var sandwich = await resp.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Sandwich>(sandwich);
+        }
+
+        return null;
+    }
+
+    public async Task<string> GetSandwich()
+    {
+        var resp = await _httpClient.GetAsync("http://localhost:8080/sandwich");
+        if (resp.IsSuccessStatusCode)
+        {
+            var sandwich = await resp.Content.ReadAsStringAsync();
+            return sandwich;
+        }
+
+
+        return "No Sandwich";
+    }
+
 
     public async Task SendOfferAsync(string offer)
     {
