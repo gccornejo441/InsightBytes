@@ -17,6 +17,8 @@ using FluentAvalonia.UI.Windowing;
 
 using ReactiveUI;
 using InsightBytes.Services.Factory;
+using AvaloniaEdit;
+using AvaloniaEdit.Document;
 
 namespace InsightBytes;
 
@@ -25,17 +27,25 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
     public HomeControl()
     {
         InitializeComponent();
-        this.WhenActivated(disposables =>
-        {
-            ViewModel?.SelectAllTextInteraction.RegisterHandler(async interaction =>
+        var _textEditor = this.FindControl<TextEditor>("LogViewer");
+        _textEditor.Document = new TextDocument(
+            "// AvaloniaEdit supports displaying control chars: \a or \b or \v" +
+                Environment.NewLine +
+                "// AvaloniaEdit supports displaying underline and strikethrough" +
+                Environment.NewLine);
+        this.WhenActivated(
+            disposables =>
             {
-                LogViewer.SelectAll();
-                interaction.SetOutput(Unit.Default);
-            }).DisposeWith(disposables);
+                ViewModel?.SelectAllTextInteraction.RegisterHandler(
+                async interaction =>
+                {
+                    LogViewer.SelectAll();
+                    interaction.SetOutput(Unit.Default);
+                })
+                .DisposeWith(disposables);
 
-            ViewModel?.ShowNotificationDialog.RegisterHandler(HandleNotificationDialog);
-        });
-
+                ViewModel?.ShowNotificationDialog.RegisterHandler(HandleNotificationDialog);
+            });
     }
 
     private async Task HandleNotificationDialog(InteractionContext<IDialogUnit, bool> interaction)
@@ -46,27 +56,21 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
 
         try
         {
-            if (dialogType == "Warning")
+            if(dialogType == "Warning")
             {
-                var warningDialog = new WarningDialogProduct(windowTitle,dialogTitle,dialogSubTitle);
+                var warningDialog = new WarningDialogProduct(windowTitle, dialogTitle, dialogSubTitle);
                 warningDialog.DataContext = interaction.Input;
                 var result = await warningDialog.ShowDialog<bool>(window);
                 interaction.SetOutput(result);
-
-            }
-            else if (dialogType == "Download")
+            } else if(dialogType == "Download")
             {
-
-                var downloadDialog = new DownloadDialogViewModel(windowTitle,dialogTitle,dialogSubTitle);
+                var downloadDialog = new DownloadDialogViewModel(windowTitle, dialogTitle, dialogSubTitle);
                 downloadDialog.DataContext = interaction.Input;
 
                 var result = await downloadDialog.ShowDialog<bool>(window);
                 interaction.SetOutput(result);
-
             }
-
-        }
-        catch (Exception ex)
+        } catch(Exception ex)
         {
             LogError(ex); // TODO: LogError is a helper method that needs to be moved to a helper class.
 
@@ -81,14 +85,18 @@ public partial class HomeControl : ReactiveUserControl<HomeControlViewModel>
     /// <remarks>LogError is a helper method that needs to be moved to a helper class.</remarks>
     private void LogError(Exception ex)
     {
-        var warningDialog = new WarningDialogProduct("Error","Error!","Restart the application and try again.\r\nIf the problem persists, please contact our support team for help and mention 'Window Display Issue'");
+        var warningDialog = new WarningDialogProduct(
+            "Error",
+            "Error!",
+            "Restart the application and try again.\r\nIf the problem persists, please contact our support team for help and mention 'Window Display Issue'");
         warningDialog.DataContext = warningDialog;
 
         warningDialog.Show();
     }
-    private void Control_OnSizeChanged(object sender,SizeChangedEventArgs e)
+
+    private void Control_OnSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        if (e.HeightChanged)
+        if(e.HeightChanged)
         {
             ScrollOutputViewer.Height = e.NewSize.Height;
         }

@@ -2,6 +2,7 @@
 	x:Class="InsightBytes.HomeControl"
 	xmlns="https://github.com/avaloniaui"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Editor="using:AvaloniaEdit"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:view="using:InsightBytes"
@@ -15,8 +16,8 @@
 	<Design.DataContext>
 		<vm:HomeControlViewModel />
 	</Design.DataContext>
-			
-			<ScrollViewer Padding="50,0,0,0" Background="{DynamicResource NormalBlackDark}">
+
+	<ScrollViewer Padding="50,0,0,0" Background="{DynamicResource NormalBlackDark}">
 		<Grid ColumnDefinitions="*,Auto" RowDefinitions="50,*">
 			<DockPanel Grid.Row="0">
 				<StackPanel Spacing="0">
@@ -36,23 +37,15 @@
 						Name="ScrollOutputViewer"
 						VerticalAlignment="Stretch"
 						HorizontalScrollBarVisibility="Auto">
-						<SelectableTextBlock
-							x:Name="LogViewer"
-							Padding="10"
-							Background="Transparent"
+						<Editor:TextEditor
+							Name="LogViewer"
+							Grid.Row="1"
+							Grid.Column="0"
+							Background="{DynamicResource NormalBlackDark}"
 							FontFamily="Cascadia Code"
-							FontWeight="Normal"
+							FontSize="14"
 							Foreground="{DynamicResource NormalGreenDark}"
-							Text="{Binding LogMessages}">
-							<SelectableTextBlock.ContextFlyout>
-								<Flyout Placement="Top">
-									<StackPanel>
-										<MenuItem Command="{Binding SelectAllCommand}" Header="Select All" />
-										<MenuItem Command="{Binding ClearLogWindowCommand}" Header="Clear" />
-									</StackPanel>
-								</Flyout>
-							</SelectableTextBlock.ContextFlyout>
-						</SelectableTextBlock>
+							ShowLineNumbers="True" />
 					</ScrollViewer>
 				</Border>
 				<view:MainStatusBarView Grid.Row="1" />
